@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:20 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/06 12:30:45 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/06 12:46:27 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ DataBuffer::DataBuffer() : buffer(), read_position(0)
 {
 }
 
-DataBuffer::DataBuffer(const DataBuffer& other) : buffer(other.buffer), read_position(other.read_position)
+DataBuffer::DataBuffer(const DataBuffer& other) noexcept : buffer(other.buffer), read_position(other.read_position)
 {
 }
 
-DataBuffer::DataBuffer(const DataBuffer&& other) : buffer(std::move(other.buffer)), read_position(other.read_position)
+DataBuffer::DataBuffer(const DataBuffer&& other) noexcept : buffer(std::move(other.buffer)), read_position(other.read_position)
 {
 }
 
-DataBuffer& DataBuffer::operator=(const DataBuffer& other)
+DataBuffer& DataBuffer::operator=(const DataBuffer& other) noexcept
 {
 	if (this != &other) {
 		buffer = other.buffer;
@@ -33,7 +33,7 @@ DataBuffer& DataBuffer::operator=(const DataBuffer& other)
 	return *this;
 }
 
-DataBuffer& DataBuffer::operator=(const DataBuffer&& other)
+DataBuffer& DataBuffer::operator=(const DataBuffer&& other) noexcept
 {
 	if (this != &other) {
 		buffer = std::move(other.buffer);

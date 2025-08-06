@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:28:10 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/06 12:26:18 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/06 12:45:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 class DataBuffer {
 	public:
 		DataBuffer();
-		DataBuffer(const DataBuffer&);
-		DataBuffer(const DataBuffer&&);
-		DataBuffer& operator=(const DataBuffer&);
-		DataBuffer& operator=(const DataBuffer&&);
+		DataBuffer(const DataBuffer&) noexcept;
+		DataBuffer(const DataBuffer&&) noexcept;
+		DataBuffer& operator=(const DataBuffer&) noexcept;
+		DataBuffer& operator=(const DataBuffer&&) noexcept;
 		~DataBuffer();
 
 		template<typename T> DataBuffer& operator<<(const T& p_object);
