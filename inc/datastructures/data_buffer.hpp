@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:28:10 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/06 12:45:35 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/06 17:28:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@
 #include <cstdint>
 #include <stdexcept>
 #include <string>
+#include <cstring>
 
 class DataBuffer {
 	public:
-		DataBuffer();
+		DataBuffer() noexcept;
 		DataBuffer(const DataBuffer&) noexcept;
 		DataBuffer(const DataBuffer&&) noexcept;
 		DataBuffer& operator=(const DataBuffer&) noexcept;
 		DataBuffer& operator=(const DataBuffer&&) noexcept;
-		~DataBuffer();
+		~DataBuffer() noexcept;
 
 		template<typename T> DataBuffer& operator<<(const T& p_object);
 		template<typename T> DataBuffer& operator>>(T& p_object);
@@ -34,7 +35,6 @@ class DataBuffer {
 
 	private:
 		std::vector<uint8_t> buffer;
-		size_t read_position;
 };
 
 template<typename T>
@@ -42,17 +42,20 @@ DataBuffer& DataBuffer::operator<<(const T& p_object)
 {
 	const u_int8_t* data = reinterpret_cast<const u_int8_t*>(&p_object);
 	buffer.insert(buffer.end(), data, data + sizeof(T));
+
 	return *this;
 }
 
 template<typename T>
 DataBuffer& DataBuffer::operator>>(T& p_object) 
 {
-	if (read_position + sizeof(T) > buffer.size())
+	if (sizeof(T) > buffer.size())
 		throw std::out_of_range("Not enough data to read");
-	const u_int8_t* data = buffer.data() + read_position;
-	p_object = *reinterpret_cast<const T*>(data);
-	read_position += sizeof(T);
+
+	const u_int8_t* data = buffer.data();
+	std::memcpy(&p_object, data, sizeof(T));
+	buffer.erase(buffer.begin(), buffer.begin() + sizeof(T));
+
 	return *this;
 }
 
