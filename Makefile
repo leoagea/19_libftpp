@@ -9,9 +9,8 @@ NC     := \033[0m
 ###############################################################################
 # Compiler & Flags
 ###############################################################################
-CXX       = g++
+CXX       = c++
 CXXFLAGS  = -Wall -Wextra -Werror -O2 -MMD -MP -std=c++17
-# -MMD and -MP tell the compiler to generate .d (dependency) files for each .c
 
 ###############################################################################
 # Project Settings
@@ -26,26 +25,14 @@ TARGET   = $(LIB_DIR)/libftpp.a
 # Sources / Objects
 ###############################################################################
 SRC_FILES := $(shell find $(SRC_DIR) -type f -name '*.cpp')
-			
 SRCS      := $(SRC_FILES)
-
 OBJS      := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
-
-DEPS      = $(OBJS:.o=.d)
+DEPS      := $(OBJS:.o=.d)
 
 ###############################################################################
 # Default Rule
 ###############################################################################
 all: $(TARGET)
-
-###############################################################################
-# Linking
-###############################################################################
-$(TARGET): $(OBJS)
-	@echo "$(BLUE)Linking $(TARGET)...$(NC)"
-	@mkdir -p $(LIB_DIR)
-	@ar rc $(TARGET) $(OBJS)
-	@echo "$(GREEN)Build complete!$(NC)"
 
 ###############################################################################
 # Object File Compilation
@@ -56,26 +43,31 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@
 
 ###############################################################################
+# Linking
+###############################################################################
+$(TARGET): $(OBJS)
+	@echo "$(BLUE)Linking $(TARGET)...$(NC)"
+	@mkdir -p $(LIB_DIR)
+	@ar rcs $(TARGET) $(OBJS)
+	@echo "$(GREEN)Build complete!$(NC)"
+
+###############################################################################
 # Cleanup
 ###############################################################################
 clean:
-	rm -f $(OBJS) $(DEPS)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -rf $(OBJ_DIR)
-	rm -f $(TARGET)
 
 re: fclean all
 
 ###############################################################################
-# Others Rules
+# Debug
 ###############################################################################
-help:
-	@echo "Available targets:"
-	@echo "  all      : Build $(TARGET)"
-	@echo "  clean    : Remove object files"
-	@echo "  fclean   : Remove all generated files"
-	@echo "  re       : Rebuild everything"
+debug:
+	@echo "SRC_FILES: $(SRC_FILES)"
+	@echo "SRCS: $(SRCS)"
+	@echo "OBJS: $(OBJS)"
 
 ###############################################################################
 # Dependency Handling
@@ -85,4 +77,4 @@ help:
 ###############################################################################
 # Phony Targets
 ###############################################################################
-.PHONY: all clean fclean re debug help
+.PHONY: all clean fclean re debug
