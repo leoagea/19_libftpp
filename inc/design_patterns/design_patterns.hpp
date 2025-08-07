@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 13:39:20 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/07 15:11:47 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/07 16:02:18 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 #include "memento.hpp"
 #include "observer.hpp"
+#include "singleton.hpp"
 
 #endif
