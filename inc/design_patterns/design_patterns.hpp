@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftpp.hpp                                        :+:      :+:    :+:   */
+/*   design_patterns.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 16:25:17 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/07 14:11:13 by lagea            ###   ########.fr       */
+/*   Created: 2025/08/07 13:39:20 by lagea             #+#    #+#             */
+/*   Updated: 2025/08/07 13:40:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPP_HPP
-# define LIBFTPP_HPP
+#ifndef DESIGN_PATTERNS_HPP
+# define DESIGN_PATTERNS_HPP
 
-#include "datastructures/data_structures.hpp"
-#include "design_patterns/design_patterns.hpp"
+#include "memento.hpp"
 
 #endif
