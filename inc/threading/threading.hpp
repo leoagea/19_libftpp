@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 00:57:42 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 14:29:12 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/11 15:36:36 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 #include "thread_safe_queue.hpp"
 #include "thread.hpp"
 #include "worker_pool.hpp"
+#include "persistent_worker.hpp"
 
 #endif
