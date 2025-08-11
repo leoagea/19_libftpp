@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 00:57:42 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/10 23:51:04 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/11 12:35:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 #include "thread_safe_iostream.hpp"
 #include "thread_safe_queue.hpp"
+#include "thread.hpp"
 
 #endif

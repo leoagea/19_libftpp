@@ -40,7 +40,7 @@ all: $(TARGET)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@echo "$(YELLOW)Compiling $<...$(NC)"
 	@mkdir -p $(dir $@)
-	@$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@ -pthread
 
 ###############################################################################
 # Linking
