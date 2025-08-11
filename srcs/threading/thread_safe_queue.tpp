@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 00:57:16 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/10 23:42:25 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/11 14:40:43 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,12 @@ TType ThreadSafeQueue<TType>::pop_front()
 	TType fvalue = _queue.front();
 	_queue.pop_front();
 	return fvalue;
+}
+
+
+template <typename TType>
+bool ThreadSafeQueue<TType>::empty() const noexcept
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+	return _queue.empty();
 }

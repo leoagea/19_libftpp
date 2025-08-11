@@ -6,9 +6,11 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:38:12 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/07 16:14:27 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/11 14:43:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <iostream>
 
 template<typename TType>
 std::unique_ptr<TType> Singleton<TType>::_p_instance = nullptr;

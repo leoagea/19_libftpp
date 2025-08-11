@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 00:56:44 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/10 23:42:17 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/11 14:38:36 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ class ThreadSafeQueue
 		void push_front(const TType &) noexcept;
 		TType pop_back();
 		TType pop_front();
+
+		bool empty() const noexcept;
 
 	private:
 		std::deque<TType> _queue;
