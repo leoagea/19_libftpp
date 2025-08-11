@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:00:36 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 18:34:57 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/12 00:02:02 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <functional>
 #include <iostream>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
@@ -34,7 +35,7 @@ class Server
 		~Server() noexcept;
 
 		void start(const size_t &);
-		void defineAction(const Message::Type &, const std::function<void(long long &, const Message &)> &)
+		void defineAction(const Message::Type &, const std::function<void(long long &, const Message &)> &);
 		void sendTo(const Message &, long long);
 		void sendToArray(const Message &, std::vector<long long>);
 		void sendToAll(const Message &);
@@ -47,7 +48,7 @@ class Server
 		
 		void acceptNewClient();
 		void handleClient();
-		void send(const Message &);
+		void send(const Message &, sockfd);
 };
 
 #endif

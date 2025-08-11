@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftpp.hpp                                        :+:      :+:    :+:   */
+/*   mathematics.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 16:25:17 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 00:08:37 by lagea            ###   ########.fr       */
+/*   Created: 2025/08/11 23:38:15 by lagea             #+#    #+#             */
+/*   Updated: 2025/08/12 00:03:31 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPP_HPP
-# define LIBFTPP_HPP
+#ifndef MATHEMATICS_HPP
+# define MATHEMATICS_HPP
 
-#include "datastructures/data_structures.hpp"
-#include "design_patterns/design_patterns.hpp"
-#include "threading/threading.hpp"
-#include "network/network.hpp"
-#include "mathematics/mathematics.hpp"
+#include "ivector2.hpp"
 
 #endif
