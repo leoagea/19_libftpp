@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftpp.hpp                                        :+:      :+:    :+:   */
+/*   network.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 16:25:17 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 15:55:32 by lagea            ###   ########.fr       */
+/*   Created: 2025/08/11 15:55:10 by lagea             #+#    #+#             */
+/*   Updated: 2025/08/11 17:25:14 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPP_HPP
-# define LIBFTPP_HPP
+#ifndef NETWORK_HPP
+# define NETWORK_HPP
 
-#include "datastructures/data_structures.hpp"
-#include "design_patterns/design_patterns.hpp"
-#include "threading/threading.hpp"
-#include "network/network.hpp"
+#include "message.hpp"
+#include "client.hpp"
 
 #endif

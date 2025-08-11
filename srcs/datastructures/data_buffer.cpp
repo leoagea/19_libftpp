@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:20 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/06 17:31:23 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/11 17:14:25 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,9 @@ DataBuffer& DataBuffer::operator>>(std::string& p_string)
 	buffer.erase(buffer.begin(), buffer.begin() + length);
 
 	return *this;
+}
+
+const std::vector<uint8_t>& DataBuffer::data() const noexcept
+{
+	return buffer;
 }

@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:28:10 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/06 17:28:09 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/11 17:14:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ class DataBuffer {
 		template<typename T> DataBuffer& operator>>(T& p_object);
 		DataBuffer& operator<<(const std::string& p_string);
 		DataBuffer& operator>>(std::string& p_string);
+
+		const std::vector<uint8_t>& data() const noexcept;
 
 	private:
 		std::vector<uint8_t> buffer;
