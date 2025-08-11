@@ -3,3 +3,4 @@
 	remove include from .tpp files
 
 	maybe add size, empty, clear method for DataBuffer, ThreadSafeQueue
+	maybe add getter for class
