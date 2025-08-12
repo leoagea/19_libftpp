@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "perlin_noise_2D.hpp"
+#include "../inc/libftpp.hpp"
 
 int main() {
     PerlinNoise2D perlin;
@@ -12,7 +12,7 @@ int main() {
 
     for (int y = 0; y < gridSize; ++y) {
         for (int x = 0; x < gridSize; ++x) {
-            float sample = perlin.sample(x * 0.1f, y * 0.1f); // Adjust these factors as needed
+            float sample = perlin.sample(x * 0.3f, y * 0.3f); // Adjust these factors as needed
             sample = (sample + 1) / 2; // Map from [-1, 1] to [0, 1]
             int charIndex = std::round(sample * 9); // Map from [0, 1] to [0, 9]
 

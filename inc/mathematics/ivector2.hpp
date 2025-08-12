@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 23:38:58 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 00:38:40 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/12 15:02:10 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ struct IVector2
 	IVector2<TType> cross() const;
 	IVector2<TType> cross(const IVector2<TType> &) const;
 };
+
+template<typename TType>
+IVector2<TType> constantVector(const TType &);
 
 #include "../../srcs/mathematics/ivector2.tpp"
 
