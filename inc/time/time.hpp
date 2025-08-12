@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftpp.hpp                                        :+:      :+:    :+:   */
+/*   time.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 16:25:17 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 17:41:37 by lagea            ###   ########.fr       */
+/*   Created: 2025/08/12 16:42:14 by lagea             #+#    #+#             */
+/*   Updated: 2025/08/12 17:41:31 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPP_HPP
-# define LIBFTPP_HPP
+#ifndef TIME_HPP
+# define TIME_HPP
 
-#include "datastructures/data_structures.hpp"
-#include "design_patterns/design_patterns.hpp"
-#include "threading/threading.hpp"
-#include "network/network.hpp"
-#include "mathematics/mathematics.hpp"
-#include "time/time.hpp"
+#include "chronometer.hpp"
 
 #endif
