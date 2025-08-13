@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:42:14 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 17:41:31 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/13 14:56:24 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define TIME_HPP
 
 #include "chronometer.hpp"
+#include "timer.hpp"
 
 #endif
