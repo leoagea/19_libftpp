@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:35:28 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/07 13:40:19 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/13 15:27:18 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 #include "data_buffer.hpp"
 #include "pool.hpp"
+#include "uuid.hpp"
 
 #endif

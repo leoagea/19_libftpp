@@ -4,3 +4,11 @@
 
 	maybe add size, empty, clear method for DataBuffer, ThreadSafeQueue
 	maybe add getter for class
+
+	check test chronometer class with threading
+	add to_string and operator<< oveload for chrono
+
+### Idea bonus
+	UUID class
+	Logger class
+	CSV class 
