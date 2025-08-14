@@ -6,21 +6,21 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:52:07 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/14 15:29:16 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/14 15:53:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utilities/logger.hpp"
 
-Logger::Logger(const std::string &name) : _name(name), _logLevel(LogLevel::CRITICAL), _sinks()
+Log::Logger::Logger(const std::string &name) : _name(name), _logLevel(LogLevel::CRITICAL), _sinks()
 {
 }
 
-Logger::Logger(Logger &&other) noexcept : _name(std::move(other._name)), _logLevel(other._logLevel), _sinks(std::move(other._sinks))
+Log::Logger::Logger(Logger &&other) noexcept : _name(std::move(other._name)), _logLevel(other._logLevel), _sinks(std::move(other._sinks))
 {
 }
 
-Logger &Logger::operator=(Logger &&other) noexcept
+Log::Logger &Log::Logger::operator=(Logger &&other) noexcept
 {
 	if (this != &other) {
 		_name = std::move(other._name);
@@ -30,25 +30,25 @@ Logger &Logger::operator=(Logger &&other) noexcept
 	return *this;
 }
 
-Logger::~Logger()
+Log::Logger::~Logger()
 {
 }
 
-void Logger::setName(const std::string &name)
+void Log::Logger::setName(const std::string &name)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	_name = name;
 }
 
-const std::string Logger::getName() const
+const std::string Log::Logger::getName() const
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	return _name;
 }
 
-void Logger::addSink(Sink *sink)
+void Log::Logger::addSink(Sink *sink)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
@@ -56,7 +56,7 @@ void Logger::addSink(Sink *sink)
 		_sinks.push_back(sink);
 }
 
-void Logger::removeSink(Sink *sink)
+void Log::Logger::removeSink(Sink *sink)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
@@ -67,27 +67,27 @@ void Logger::removeSink(Sink *sink)
 	}
 }
 
-void Logger::clearSinks()
+void Log::Logger::clearSinks()
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	_sinks.clear();
 }
 
-void Logger::setLogLevel(LogLevel level)
+void Log::Logger::setLogLevel(LogLevel level)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 	
 	_logLevel = level;
 }
 
-bool Logger::shoudLog(LogLevel level) const
+bool Log::Logger::shoudLog(LogLevel level) const
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 	return _logLevel <= level;
 }
 
-void Logger::log(LogLevel level, const std::string &message, const Source &source)
+void Log::Logger::log(LogLevel level, const std::string &message, const Source &source)
 {
 	if (!shoudLog(level))
 		return;
