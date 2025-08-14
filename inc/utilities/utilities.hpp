@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:51:16 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/14 12:51:43 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/14 18:16:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define UTILITIES_HPP
 
 #include "logger.hpp"
+#include "csv.hpp"
 
 #endif
