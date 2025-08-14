@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftpp.hpp                                        :+:      :+:    :+:   */
+/*   utilities.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 16:25:17 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/14 12:51:46 by lagea            ###   ########.fr       */
+/*   Created: 2025/08/14 12:51:16 by lagea             #+#    #+#             */
+/*   Updated: 2025/08/14 12:51:43 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPP_HPP
-# define LIBFTPP_HPP
+#ifndef UTILITIES_HPP
+# define UTILITIES_HPP
 
-#include "datastructures/data_structures.hpp"
-#include "design_patterns/design_patterns.hpp"
-#include "threading/threading.hpp"
-#include "network/network.hpp"
-#include "mathematics/mathematics.hpp"
-#include "time/time.hpp"
-#include "utilities/utilities.hpp"
+#include "logger.hpp"
 
 #endif
