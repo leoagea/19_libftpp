@@ -6,13 +6,15 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:33:52 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 14:17:24 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 18:12:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mathematics/random_2D_coordinate_generator.hpp"
 
 long long Random2DCoordinateGenerator::_seed = Random2DCoordinateGenerator::generateSeed();
+
+/* Public Methods */
 
 Random2DCoordinateGenerator::Random2DCoordinateGenerator() noexcept : _multiplier(0x5DEECE66DL)
 {
@@ -51,6 +53,8 @@ long long Random2DCoordinateGenerator::operator()(long long x, long long y) cons
 	return value;
 }
 
+/* Private Methods */
+
 long long Random2DCoordinateGenerator::generateSeed()
 {
 	return static_cast<long long>(std::chrono::system_clock::now().time_since_epoch().count());
@@ -65,9 +69,9 @@ long long Random2DCoordinateGenerator::hashCoordinates(long long x, long long y)
 	
 	// Additional mixing with bit operations
 	hash ^= hash >> 16;
-	hash *= 0x85ebca6bLL;
+	hash *= 0x748F5A29LL;
 	hash ^= hash >> 13;
-	hash *= 0xc2b2ae35LL;
+	hash *= 0x123456789LL;
 	hash ^= hash >> 16;
 
 	return hash;
