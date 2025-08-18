@@ -6,36 +6,36 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:20 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 17:14:25 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 14:50:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/datastructures/data_buffer.hpp"
 
-DataBuffer::DataBuffer() noexcept : buffer()
+DataBuffer::DataBuffer() noexcept : _buffer()
 {
 }
 
-DataBuffer::DataBuffer(const DataBuffer& other) noexcept : buffer(other.buffer)
+DataBuffer::DataBuffer(const DataBuffer &other) noexcept : _buffer(other._buffer)
 {
 }
 
-DataBuffer::DataBuffer(const DataBuffer&& other) noexcept : buffer(std::move(other.buffer))
+DataBuffer::DataBuffer(const DataBuffer &&other) noexcept : _buffer(std::move(other._buffer))
 {
 }
 
-DataBuffer& DataBuffer::operator=(const DataBuffer& other) noexcept
+DataBuffer &DataBuffer::operator=(const DataBuffer &other) noexcept
 {
 	if (this != &other)
-		buffer = other.buffer;
+		_buffer = other._buffer;
 
 	return *this;
 }
 
-DataBuffer& DataBuffer::operator=(const DataBuffer&& other) noexcept
+DataBuffer &DataBuffer::operator=(const DataBuffer &&other) noexcept
 {
 	if (this != &other) 
-		buffer = std::move(other.buffer);
+		_buffer = std::move(other._buffer);
 
 	return *this;
 }
@@ -44,30 +44,55 @@ DataBuffer::~DataBuffer() noexcept
 {
 }
 
-DataBuffer& DataBuffer::operator<<(const std::string& p_string) 
+DataBuffer &DataBuffer::operator<<(const std::string &p_string) 
 {
 	size_t length = p_string.size();
 	*this << length;
-	buffer.insert(buffer.end(), p_string.begin(), p_string.end());
+	_buffer.insert(_buffer.end(), p_string.begin(), p_string.end());
 
 	return *this;
 }
 
-DataBuffer& DataBuffer::operator>>(std::string& p_string) 
+DataBuffer &DataBuffer::operator>>(std::string &p_string) 
 {
 	size_t length;
 	*this >> length;
 
-	if (length > buffer.size())
+	if (length > _buffer.size())
 		throw std::out_of_range("Not enough data to read string");
 	
-	p_string.assign(reinterpret_cast<const char*>(buffer.data()), length);
-	buffer.erase(buffer.begin(), buffer.begin() + length);
+	p_string.assign(reinterpret_cast<const char*>(_buffer.data()), length);
+	_buffer.erase(_buffer.begin(), _buffer.begin() + length);
 
 	return *this;
 }
 
+size_t DataBuffer::size() const noexcept
+{
+	return _buffer.size();
+}
+
+size_t DataBuffer::capacity() const noexcept
+{
+	return _buffer.capacity();
+}
+
+bool DataBuffer::empty() const noexcept
+{
+	return _buffer.empty();
+}
+
+void DataBuffer::reserve(size_t new_capacity) noexcept
+{
+	_buffer.reserve(new_capacity);
+}
+
+void DataBuffer::clear() noexcept
+{
+	_buffer.clear();
+}
+
 const std::vector<uint8_t>& DataBuffer::data() const noexcept
 {
-	return buffer;
+	return _buffer;
 }
