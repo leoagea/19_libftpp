@@ -6,10 +6,12 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 12:36:24 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/06 17:00:39 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 15:06:31 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef POOL_TPP
+# define POOL_TPP
 
 /*#############################################################################
 # Pool class implementation
@@ -44,9 +46,8 @@ Pool<TType>& Pool<TType>::operator=(Pool &&other) noexcept
 template<typename TType>
 Pool<TType>::~Pool() noexcept
 {
-	for (auto& object : _pool) {
+	for (auto& object : _pool)
 		delete object;
-	}
 	
 	_pool.clear();
 }
@@ -80,9 +81,8 @@ template<typename TType>
 void Pool<TType>::release(TType *p_object) noexcept
 {
 	auto it = std::find(_pool.begin(), _pool.end(), p_object);
-	if (it != _pool.end()) {
+	if (it != _pool.end()) 
 		_free_objects.push(p_object);
-	}
 }
 
 /*#############################################################################
@@ -155,3 +155,5 @@ TType& Pool<TType>::Object::operator*() const noexcept
 {
 	return *_p_object;
 }
+
+#endif

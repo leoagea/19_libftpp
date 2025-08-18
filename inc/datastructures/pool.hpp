@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 12:24:03 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/06 16:47:16 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 15:55:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@
 #include <stack>
 #include <algorithm>
 
-
-
 template<typename TType>
 class Pool{
 
 	public:
+
 		class Object {
 			
 			public:
@@ -49,13 +48,12 @@ class Pool{
 		Pool& operator=(Pool &&) noexcept;
 		~Pool() noexcept;
 
-		template<typename ... TArgs> 
-		Object acquire(TArgs&& ... p_args);
+		template<typename ... TArgs> Object acquire(TArgs&& ... p_args);
 		void resize(const size_t &);
 
 
 	private:
-		void release(TType *p_object) noexcept;
+		void release(TType *) noexcept;
 		
 		std::vector<TType *> _pool;
 		std::stack<TType *> _free_objects;

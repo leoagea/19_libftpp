@@ -12,8 +12,8 @@ public:
 	void sayHello() const { std::cout << "Hello from TestObject" << std::endl; }
 };
 
-void test_given() {
-	std::cout << "\n--- test_given by the subject ---\n";
+void test_original() {
+	std::cout << "\n--- test_original ---\n";
 	 // Create a Pool for TestObject
 	Pool<TestObject> myPool;
 
@@ -146,7 +146,7 @@ void test_multiple_pools() {
 }
 
 int main() {
-	test_given();
+	test_original();
 	test_basic_usage();
 	test_copy_and_move();
 	test_multiple_release_and_reacquire();
