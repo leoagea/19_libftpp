@@ -6,29 +6,31 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:26:56 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/13 18:58:42 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:09:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/datastructures/uuid.hpp"
 
-UUID::UUID()
+/* Public Methods */
+
+Uuid::Uuid()
 {
 	_data.fill(0);
 }
 
-UUID::UUID(UUID &&other) noexcept : _data(std::move(other._data))
+Uuid::Uuid(Uuid &&other) noexcept : _data(std::move(other._data))
 {
 }
 
-UUID::UUID(const std::string &str)
+Uuid::Uuid(const std::string &str)
 {
 	if (!parseFromString(str))
 		throw std::invalid_argument("Invalid UUID string format");
 
 }
 
-UUID& UUID::operator=(UUID &&other) noexcept
+Uuid &Uuid::operator=(Uuid &&other) noexcept
 {
 	if (this != &other) {
 		_data = std::move(other._data);
@@ -36,37 +38,37 @@ UUID& UUID::operator=(UUID &&other) noexcept
 	return *this;
 }
 
-UUID::~UUID() noexcept
+Uuid::~Uuid() noexcept
 {
 }
 
-UUID UUID::generate()
+Uuid Uuid::generate()
 {
-	UUID uuid;
+	Uuid uuid;
 	uuid._generateV4();
 	return uuid;
 }
 
-UUID UUID::generateV1()
+Uuid Uuid::generateV1()
 {
-	UUID uuid;
+	Uuid uuid;
 	uuid._generateV1();
 	return uuid;
 }
 
-UUID UUID::generateV4()
+Uuid Uuid::generateV4()
 {
-	UUID uuid;
+	Uuid uuid;
 	uuid._generateV4();
 	return uuid;
 }
 
-UUID UUID::null()
+Uuid Uuid::null()
 {
-	return UUID();
+	return Uuid();
 }
 
-std::string UUID::toString() const
+std::string Uuid::toString() const
 {
 	std::ostringstream oss;
 	for (size_t i = 0; i < 16; ++i) {
@@ -77,7 +79,7 @@ std::string UUID::toString() const
 	return oss.str();
 }
 
-std::string UUID::toString(bool p_uppercase) const
+std::string Uuid::toString(bool p_uppercase) const
 {
 	std::string str = toString();
 	if (p_uppercase) 
@@ -88,64 +90,64 @@ std::string UUID::toString(bool p_uppercase) const
 	return str;
 }
 
-bool UUID::isNull() const noexcept
+bool Uuid::isNull() const noexcept
 {
 	return std::all_of(_data.begin(), _data.end(), [](uint8_t byte) { return byte == 0; });
 }
 
-bool UUID::isValid() const noexcept
+bool Uuid::isValid() const noexcept
 {
 	// A valid UUID must have a version and variant set
 	int ver = version();
 	return (ver >= 1 && ver <= 5) && ((_data[8] & 0xC0) == 0x80);
 }
 
-int UUID::version() const noexcept
+int Uuid::version() const noexcept
 {
 	// Version is stored in the 7th byte (index 6)
 	return (_data[6] >> 4) & 0x0F;
 }
 
-int UUID::variant() const noexcept
+int Uuid::variant() const noexcept
 {
 	// Variant is stored in the 9th byte (index 8)
 	if ((_data[8] & 0xC0) == 0x80) 
 		return 2; // RFC 4122 variant
 
-	return -1; // Unknown variant
+	return -1;
 }
 
-bool UUID::operator==(const UUID &other) const noexcept
+bool Uuid::operator==(const Uuid &other) const noexcept
 {
 	return _data == other._data;
 }
 
-bool UUID::operator!=(const UUID &other) const noexcept
+bool Uuid::operator!=(const Uuid &other) const noexcept
 {
 	return !(*this == other);
 }	
 
-bool UUID::operator<(const UUID &other) const noexcept
+bool Uuid::operator<(const Uuid &other) const noexcept
 {
 	return _data < other._data;
 }
 
-bool UUID::operator<=(const UUID &other) const noexcept
+bool Uuid::operator<=(const Uuid &other) const noexcept
 {
 	return _data <= other._data;
 }
 
-bool UUID::operator>(const UUID &other) const noexcept
+bool Uuid::operator>(const Uuid &other) const noexcept
 {
 	return _data > other._data;
 }
 
-bool UUID::operator>=(const UUID &other) const noexcept
+bool Uuid::operator>=(const Uuid &other) const noexcept
 {
 	return _data >= other._data;
 }
 
-size_t UUID::hash() const noexcept
+size_t Uuid::hash() const noexcept
 {
 	size_t hash = 0;
 	for (const auto &byte : _data)
@@ -154,25 +156,27 @@ size_t UUID::hash() const noexcept
 	return hash;
 }
 
-const std::array<uint8_t, 16> &UUID::data() const noexcept
+const std::array<uint8_t, 16> &Uuid::data() const noexcept
 {
 	return _data;
 }
 
-void UUID::setData(const std::array<uint8_t, 16> &data) noexcept
+void Uuid::setData(const std::array<uint8_t, 16> &data) noexcept
 {
 	_data = data;
 }
 
-std::ostream& operator<<(std::ostream &os, const UUID &uuid)
+std::ostream &operator<<(std::ostream &os, const Uuid &uuid)
 {
 	os << uuid.toString();
 	return os;
 }
 
-void UUID::_generateV1()
+/* Private Methods */
+
+// Generate a version 1 UUID (timestamp-based)
+void Uuid::_generateV1()
 {
-	// Generate a version 1 UUID (timestamp-based)
 
 	auto now = std::chrono::steady_clock::now();
 	auto duration = now.time_since_epoch();
@@ -193,9 +197,9 @@ void UUID::_generateV1()
 	}
 }
 
-void UUID::_generateV4()
+// Generate a random UUID (version 4)
+void Uuid::_generateV4()
 {
-	// Generate a random UUID (version 4)
 
 	static thread_local std::random_device rd;
 	static thread_local std::mt19937 gen(rd());
@@ -210,7 +214,7 @@ void UUID::_generateV4()
 	_data[8] = (_data[8] & 0x3F) | 0x80;
 }
 
-bool UUID::parseFromString(const std::string &str)
+bool Uuid::parseFromString(const std::string &str)
 {
 	if (str.size() != 36)
 		return false;
@@ -245,12 +249,12 @@ bool UUID::parseFromString(const std::string &str)
 	return dataIndex == 32;
 }
 
-bool UUID::isHexDigit(char c) noexcept
+bool Uuid::isHexDigit(char c) noexcept
 {
 	return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
 }
 
-uint8_t UUID::hexCharToByte(char c) noexcept
+uint8_t Uuid::hexCharToByte(char c) noexcept
 {
 	if (c >= '0' && c <= '9')
 		return c - '0';

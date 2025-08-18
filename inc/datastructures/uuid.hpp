@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:26:54 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/13 18:42:56 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:10:17 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,27 @@
 #include <random>
 #include <algorithm>
 
-class UUID
+/*
+ * UUID (Universally Unique Identifier) class
+ * This class provides functionality to generate, manipulate, and compare UUIDs.
+ * It supports both version 1 (timestamp-based) and version 4 (random) UUIDs.
+ * The UUID is represented as a 16-byte array.
+*/
+class Uuid
 {
 	public:
-		UUID();
-		UUID(const UUID &) = default;
-		UUID(const std::string &);
-		UUID(UUID &&) noexcept;
-		UUID& operator=(const UUID &) = default;
-		UUID& operator=(UUID &&) noexcept;
-		~UUID() noexcept;
+		Uuid();
+		Uuid(const Uuid &) = delete;
+		Uuid(const std::string &);
+		Uuid(Uuid &&) noexcept;
+		Uuid& operator=(const Uuid &) = delete;
+		Uuid& operator=(Uuid &&) noexcept;
+		~Uuid() noexcept;
 		
-		static UUID generate();
-		static UUID generateV1();
-		static UUID generateV4();
-		static UUID null();
+		static Uuid generate();
+		static Uuid generateV1();
+		static Uuid generateV4();
+		static Uuid null();
 		
 		std::string toString() const;
 		std::string toString(bool) const;
@@ -48,19 +54,19 @@ class UUID
 		int version() const noexcept;
 		int variant() const noexcept;
 
-		bool operator==(const UUID &) const noexcept;
-		bool operator!=(const UUID &) const noexcept;
-		bool operator<(const UUID &) const noexcept;
-		bool operator<=(const UUID &) const noexcept;
-		bool operator>(const UUID &) const noexcept;
-		bool operator>=(const UUID &) const noexcept;
+		bool operator==(const Uuid &) const noexcept;
+		bool operator!=(const Uuid &) const noexcept;
+		bool operator<(const Uuid &) const noexcept;
+		bool operator<=(const Uuid &) const noexcept;
+		bool operator>(const Uuid &) const noexcept;
+		bool operator>=(const Uuid &) const noexcept;
 
 		size_t hash() const noexcept;
 		
 		const std::array<uint8_t, 16> &data() const noexcept;
 		void setData(const std::array<uint8_t, 16> &) noexcept;
 		
-		friend std::ostream& operator<<(std::ostream &, const UUID &);
+		friend std::ostream& operator<<(std::ostream &, const Uuid &);
 		
 	private:
 		std::array<uint8_t, 16> _data;
@@ -74,8 +80,8 @@ class UUID
 
 namespace std {
 	template<>
-	struct hash<UUID> {
-		size_t operator()(const UUID& uuid) const noexcept {
+	struct hash<Uuid> {
+		size_t operator()(const Uuid& uuid) const noexcept {
 			return uuid.hash();
 		}
 	};
