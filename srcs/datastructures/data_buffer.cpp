@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:20 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/18 14:50:29 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:06:23 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ DataBuffer::DataBuffer(const DataBuffer &other) noexcept : _buffer(other._buffer
 {
 }
 
-DataBuffer::DataBuffer(const DataBuffer &&other) noexcept : _buffer(std::move(other._buffer))
+DataBuffer::DataBuffer(DataBuffer &&other) noexcept : _buffer(std::move(other._buffer))
 {
 }
 
@@ -32,7 +32,7 @@ DataBuffer &DataBuffer::operator=(const DataBuffer &other) noexcept
 	return *this;
 }
 
-DataBuffer &DataBuffer::operator=(const DataBuffer &&other) noexcept
+DataBuffer &DataBuffer::operator=(DataBuffer &&other) noexcept
 {
 	if (this != &other) 
 		_buffer = std::move(other._buffer);
