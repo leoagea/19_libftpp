@@ -6,9 +6,12 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:09:30 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 12:31:22 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:42:02 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef I_VECTOR3_TPP
+# define I_VECTOR3_TPP
 
 #include <cmath>
 #include <stdexcept>
@@ -128,3 +131,5 @@ IVector3<TType> IVector3<TType>::cross(const IVector3<TType> &other) const
 		x * other.y - y * other.x
 	);
 }
+
+#endif
