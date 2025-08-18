@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <cmath>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 void test_original() {
 	std::cout << "\n=== Original Tests ===" << std::endl;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <iomanip>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 void printDuration(const std::string& label, const Chronometer::duration_ms& duration) {
     std::cout << std::left << std::setw(25) << label << ": " 

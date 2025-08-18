@@ -7,7 +7,7 @@
 #include <thread>
 #include <chrono>
 #include <sstream>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 void test_basic_functionality() {
 	std::cout << "=== Testing Basic Functionality ===" << std::endl;

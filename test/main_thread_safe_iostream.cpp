@@ -3,7 +3,7 @@
 #include <vector>
 #include <chrono>
 #include <sstream>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 // Original test - kept as is
 void printNumbers(const std::string& p_prefix) {

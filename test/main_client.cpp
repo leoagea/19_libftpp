@@ -1,4 +1,4 @@
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 #include <string>
 
 int main() {

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 int main() {
 	PerlinNoise2D perlin;

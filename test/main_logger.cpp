@@ -4,7 +4,7 @@
 #include <thread>
 #include <chrono>
 #include <vector>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 // ✅ Console Sink Implementation
 class ConsoleSink : public Log::Sink {

@@ -3,7 +3,7 @@
 #include <vector>
 #include <chrono>
 #include <random>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 // Original test functions - kept as is
 void testPush(ThreadSafeQueue<int>& p_queue, int p_value) {

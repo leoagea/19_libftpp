@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 enum class State {
 	Idle,

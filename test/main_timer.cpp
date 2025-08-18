@@ -3,7 +3,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 void printDuration(const std::string& label, const Timer::duration_ms& duration) {
     std::cout << std::left << std::setw(20) << label << ": " 

@@ -3,7 +3,7 @@
 #include <vector>
 #include <atomic>
 #include <random>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 // Global counters for testing
 std::atomic<int> globalCounter{0};

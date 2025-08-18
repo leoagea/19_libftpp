@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 // Helper function for better output formatting
 void printSeparator(const std::string& testName) {

@@ -1,5 +1,4 @@
-#include "server.hpp"
-#include "thread_safe_iostream.hpp"
+#include "../libftpp.hpp"
 #include <string>
 
 int main() {

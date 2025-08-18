@@ -2,7 +2,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "../inc/libftpp.hpp"
+#include "../libftpp.hpp"
 
 class MyClass {
 public:
