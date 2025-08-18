@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 13:39:44 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/07 14:14:02 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:29:02 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 class Memento {
 
 	public:
+
 		class Snapshot {
+
 			public:
 				Snapshot() noexcept;
 				Snapshot(const Snapshot &) noexcept = delete;
@@ -36,9 +38,9 @@ class Memento {
 
 		Memento() noexcept;
 		Memento(const Memento &) noexcept = delete;
-		Memento(Memento &&) noexcept;
+		Memento(Memento &&) noexcept = default;
 		Memento& operator=(const Memento &) noexcept = delete;
-		Memento& operator=(Memento &&) noexcept;
+		Memento& operator=(Memento &&) noexcept = default;
 		virtual ~Memento() noexcept;
 
 		Snapshot save() const;

@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 13:40:50 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/07 14:23:05 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:25:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@
 
 Memento::Memento() noexcept
 {
-}
-
-Memento::Memento(Memento &&other) noexcept
-{
-	(void) other;
-}
-
-Memento& Memento::operator=(Memento &&other) noexcept
-{
-	(void) other;
-	return *this;
 }
 
 Memento::~Memento() noexcept
