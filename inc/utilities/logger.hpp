@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:51:49 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/14 16:04:23 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 18:24:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace Log {
 	struct Sink 
 	{
 		virtual ~Sink() = default;
-		virtual void write(const Record& r) = 0;
+		virtual void write(const Record &) = 0;
 		virtual void flush() = 0;
 		virtual void set_level(LogLevel) = 0;
 	};
