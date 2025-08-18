@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:20:02 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 14:56:45 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 18:10:02 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class PerlinNoise2D
 		PerlinNoise2D& operator=(PerlinNoise2D &&) noexcept;
 		~PerlinNoise2D() noexcept;
 
-		float sample(float x, float y) const;	
+		float sample(float, float) const;	
 	
 	private:
 		int _seed;

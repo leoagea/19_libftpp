@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:19:55 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 15:32:10 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:45:58 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
  * Based on this documentation:
  * https://rtouti.github.io/graphics/perlin-noise-algorithm
 */
+
+/* Public Methods */
 
 PerlinNoise2D::PerlinNoise2D() noexcept : _seed(generateSeed())
 {
@@ -75,6 +77,8 @@ float PerlinNoise2D::sample(float x, float y) const
 
 	return lerp(lerp(dotBottomLeft, dotTopLeft, v), lerp(dotBottomRight, dotTopRight, v), u);
 }
+
+/* Private Methods */
 
 int PerlinNoise2D::generateSeed() const noexcept
 {
