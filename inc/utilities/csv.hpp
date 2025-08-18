@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:36:01 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/14 18:11:15 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 18:18:15 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@
 #include <fstream>
 #include <stdexcept>
 #include <algorithm>
-#include <cctype> // for std::isspace
+#include <cctype> 
 
-class CSV
+class Csv
 {
 	public:
-		CSV();
-		CSV(const CSV &) = delete;
-		CSV(CSV &&) noexcept;
-		CSV& operator=(const CSV &) = delete;
-		CSV& operator=(CSV &&) noexcept;
-		~CSV() noexcept;
+		Csv();
+		Csv(const Csv &) = delete;
+		Csv(Csv &&) noexcept;
+		Csv& operator=(const Csv &) = delete;
+		Csv& operator=(Csv &&) noexcept;
+		~Csv() noexcept;
 
-		void load(const std::string &filename);
-		void save(const std::string &filename) const;
+		void load(const std::string &);
+		void save(const std::string &) const;
 
-		void addRow(const std::vector<std::string> &row);
-		void setHeader(const std::vector<std::string> &header);
+		void addRow(const std::vector<std::string> &);
+		void setHeader(const std::vector<std::string> &);
 		
 		const std::vector<std::vector<std::string>>& getData() const;
 		const std::vector<std::string>& getHeader() const;
@@ -44,17 +44,17 @@ class CSV
 
 		void clear();
 
-		std::vector<std::string> &operator[](size_t index);
-		const std::vector<std::string> &operator[](size_t index) const;
+		std::vector<std::string> &operator[](size_t);
+		const std::vector<std::string> &operator[](size_t) const;
 
 	private:
 		std::vector<std::vector<std::string>> _data;
 		std::vector<std::string> _header;
 		
-		void parseLine(const std::string &line, std::vector<std::string> &out);
-		std::string formatLine(const std::vector<std::string> &line) const;
-		void trim(std::string &str) const;
-		bool isQuoted(const std::string &str) const;
+		void parseLine(const std::string &, std::vector<std::string> &);
+		std::string formatLine(const std::vector<std::string> &) const;
+		void trim(std::string &) const;
+		bool isQuoted(const std::string &) const;
 };
 
 #endif
