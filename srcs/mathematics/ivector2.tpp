@@ -6,9 +6,12 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 23:38:57 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 15:03:12 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:32:50 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef I_VECTOR2_TPP
+# define I_VECTOR2_TPP
 
 #include <cmath>
 #include <stdexcept>
@@ -128,14 +131,16 @@ template<typename TType>
 IVector2<TType> constantVector(const TType &value)
 {
 	int intValue = static_cast<int>(value);
-    int h = intValue & 3; 
-    
-    if(h == 0)
-        return IVector2<TType>(static_cast<TType>(1.0), static_cast<TType>(1.0));
-    else if(h == 1)
-        return IVector2<TType>(static_cast<TType>(-1.0), static_cast<TType>(1.0));
-    else if(h == 2)
-        return IVector2<TType>(static_cast<TType>(-1.0), static_cast<TType>(-1.0));
-    else
-        return IVector2<TType>(static_cast<TType>(1.0), static_cast<TType>(-1.0));
+	int h = intValue & 3; 
+	
+	if(h == 0)
+		return IVector2<TType>(static_cast<TType>(1.0), static_cast<TType>(1.0));
+	else if(h == 1)
+		return IVector2<TType>(static_cast<TType>(-1.0), static_cast<TType>(1.0));
+	else if(h == 2)
+		return IVector2<TType>(static_cast<TType>(-1.0), static_cast<TType>(-1.0));
+	else
+		return IVector2<TType>(static_cast<TType>(1.0), static_cast<TType>(-1.0));
 }
+
+#endif
