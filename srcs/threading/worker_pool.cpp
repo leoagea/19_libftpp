@@ -6,11 +6,13 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:12:55 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 14:40:10 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 16:36:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/threading/worker_pool.hpp"
+
+/* Public Methods */
 
 WorkerPool::WorkerPool(size_t numWorkers) : _running(true)
 {
@@ -20,22 +22,6 @@ WorkerPool::WorkerPool(size_t numWorkers) : _running(true)
 	}
 }
 
-WorkerPool::WorkerPool(WorkerPool &&other) noexcept : _workers(std::move(other._workers)), _jobQueue(std::move(other._jobQueue)), _running(other._running.load())
-{
-	other._running.store(false);
-}
-
-WorkerPool& WorkerPool::operator=(WorkerPool &&other) noexcept
-{
-	if (this != &other) {
-		_workers = std::move(other._workers);
-		_jobQueue = std::move(other._jobQueue);
-		_running.store(other._running.load());
-		other._running.store(false);
-	}
-	return *this;
-}
-
 WorkerPool::~WorkerPool()
 {
 	_running.store(false);
@@ -43,12 +29,23 @@ WorkerPool::~WorkerPool()
 		if (worker.joinable())
 			worker.join();
 	}
+	_jobQueue.clear();
 }
 
-void WorkerPool::addJob(std::function<void()> job)
+void WorkerPool::addJob(const std::function<void()> &job)
 {
 	_jobQueue.push_back(job);
 }
+
+void WorkerPool::addJob(std::unique_ptr<IJobs> job)
+{
+	if (job) {
+		std::shared_ptr<IJobs> sharedJob = std::move(job);
+		_jobQueue.push_back([sharedJob]() { sharedJob->execute(); });
+	}
+}
+
+/* Private Methods */
 
 void WorkerPool::workerRoutine()
 {
@@ -60,6 +57,7 @@ void WorkerPool::workerRoutine()
 			auto job = _jobQueue.pop_front();
 			if (job) 
 				job();
+			
 		} catch (const std::runtime_error &e) {
 			threadSafeCout << "Worker encountered an error: " << e.what() << std::endl;
 			break;
