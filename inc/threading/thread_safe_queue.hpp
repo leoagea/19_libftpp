@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 00:56:44 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 14:38:36 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 15:10:30 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ class ThreadSafeQueue
 		TType pop_back();
 		TType pop_front();
 
+		void clear() noexcept;
 		bool empty() const noexcept;
+		size_t size() const noexcept;
 
 	private:
 		std::deque<TType> _queue;
 		mutable std::mutex _mutex;
-		// std::condition_variable cond_var_;
 };
 
 #include "../../srcs/threading/thread_safe_queue.tpp"

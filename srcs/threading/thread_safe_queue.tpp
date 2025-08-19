@@ -6,9 +6,12 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 00:57:16 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 14:40:43 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 15:02:14 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef THREAD_SAFE_QUEUE_TPP
+# define THREAD_SAFE_QUEUE_TPP
 
 template <typename TType>
 ThreadSafeQueue<TType>::ThreadSafeQueue() noexcept : _queue(), _mutex()
@@ -88,3 +91,19 @@ bool ThreadSafeQueue<TType>::empty() const noexcept
 	std::lock_guard<std::mutex> lock(_mutex);
 	return _queue.empty();
 }
+
+template <typename TType>
+size_t ThreadSafeQueue<TType>::size() const noexcept
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+	return _queue.size();
+}
+
+template <typename TType>
+void ThreadSafeQueue<TType>::clear() noexcept
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+	_queue.clear();
+}
+
+#endif
