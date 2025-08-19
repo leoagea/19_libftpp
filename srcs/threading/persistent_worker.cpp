@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:50:58 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 15:45:00 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 16:42:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ PersistentWorker::~PersistentWorker() noexcept
 		_workerThread.join();
 }
 
-void PersistentWorker::addTask(const std::string &name, std::function<void()> task)
+void PersistentWorker::addTask(const std::string &name, const std::function<void()> &task)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 	_um_tasks.insert({name, task});
@@ -59,7 +59,7 @@ void PersistentWorker::workerRoutine()
 		std::unordered_map<std::string, std::function<void()>> copytasks;
 		{
 			std::lock_guard<std::mutex> lock(_mutex);
-			copytasks= _um_tasks;
+			copytasks = _um_tasks;
 		}
 
 		for (const auto &taskPair : copytasks) {

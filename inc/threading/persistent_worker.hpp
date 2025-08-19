@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:50:47 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 15:45:02 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 16:41:27 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class PersistentWorker
 		PersistentWorker& operator=(PersistentWorker &&) noexcept;
 		~PersistentWorker() noexcept;
 
-		void addTask(const std::string &, std::function<void()>);
+		void addTask(const std::string &, const std::function<void()> &);
 		void removeTask(const std::string &);
 
 	private:
