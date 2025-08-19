@@ -298,249 +298,609 @@ void test_stress_output() {
 }
 
 void singleRunTask() {
-    threadSafeCout << "This task runs once and completes" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    threadSafeCout << "Single run task finished" << std::endl;
+	threadSafeCout << "This task runs once and completes" << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	threadSafeCout << "Single run task finished" << std::endl;
 }
 
 void userControlledLoopTask() {
-    for (int i = 0; i < 3; ++i) {
-        threadSafeCout << "User-controlled loop iteration " << i << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    }
-    threadSafeCout << "User-controlled loop completed" << std::endl;
+	for (int i = 0; i < 3; ++i) {
+		threadSafeCout << "User-controlled loop iteration " << i << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	}
+	threadSafeCout << "User-controlled loop completed" << std::endl;
 }
 
 void conditionalLoopTask() {
-    int count = 0;
-    while (count < 5) {
-        threadSafeCout << "Conditional loop count: " << count << std::endl;
-        count++;
-        std::this_thread::sleep_for(std::chrono::milliseconds(150));
-    }
-    threadSafeCout << "Conditional loop finished" << std::endl;
+	int count = 0;
+	while (count < 5) {
+		threadSafeCout << "Conditional loop count: " << count << std::endl;
+		count++;
+		std::this_thread::sleep_for(std::chrono::milliseconds(150));
+	}
+	threadSafeCout << "Conditional loop finished" << std::endl;
 }
 
 void test_user_controlled_execution() {
-    threadSafeCout << "\n=== User-Controlled Execution Test ===" << std::endl;
-    
-    Thread singleRun("SingleRun", singleRunTask);
-    Thread userLoop("UserLoop", userControlledLoopTask);
-    Thread conditionalLoop("ConditionalLoop", conditionalLoopTask);
+	threadSafeCout << "\n=== User-Controlled Execution Test ===" << std::endl;
+	
+	Thread singleRun("SingleRun", singleRunTask);
+	Thread userLoop("UserLoop", userControlledLoopTask);
+	Thread conditionalLoop("ConditionalLoop", conditionalLoopTask);
 
-    threadSafeCout << "Starting threads with different execution patterns..." << std::endl;
-    
-    singleRun.start();
-    userLoop.start();
-    conditionalLoop.start();
+	threadSafeCout << "Starting threads with different execution patterns..." << std::endl;
+	
+	singleRun.start();
+	userLoop.start();
+	conditionalLoop.start();
 
-    // Give them time to complete their work
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+	// Give them time to complete their work
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
-    singleRun.stop();
-    userLoop.stop();
-    conditionalLoop.stop();
+	singleRun.stop();
+	userLoop.stop();
+	conditionalLoop.stop();
 }
 
 void batchProcessingTask() {
-    threadSafeCout << "Processing batch of 10 items..." << std::endl;
-    
-    for (int i = 1; i <= 10; ++i) {
-        threadSafeCout << "Processing item " << i << "/10" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-    
-    threadSafeCout << "Batch processing completed!" << std::endl;
+	threadSafeCout << "Processing batch of 10 items..." << std::endl;
+	
+	for (int i = 1; i <= 10; ++i) {
+		threadSafeCout << "Processing item " << i << "/10" << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	}
+	
+	threadSafeCout << "Batch processing completed!" << std::endl;
 }
 
 void quickTask() {
-    threadSafeCout << "Quick task: Computing 2+2 = " << (2+2) << std::endl;
+	threadSafeCout << "Quick task: Computing 2+2 = " << (2+2) << std::endl;
 }
 
 void mediumTask() {
-    threadSafeCout << "Medium task started" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    threadSafeCout << "Medium task completed" << std::endl;
+	threadSafeCout << "Medium task started" << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	threadSafeCout << "Medium task completed" << std::endl;
 }
 
 void test_different_durations() {
-    threadSafeCout << "\n=== Different Task Durations Test ===" << std::endl;
-    
-    Thread quick("QuickTask", quickTask);
-    Thread medium("MediumTask", mediumTask);
-    Thread batch("BatchTask", batchProcessingTask);
+	threadSafeCout << "\n=== Different Task Durations Test ===" << std::endl;
+	
+	Thread quick("QuickTask", quickTask);
+	Thread medium("MediumTask", mediumTask);
+	Thread batch("BatchTask", batchProcessingTask);
 
-    threadSafeCout << "Starting tasks with different execution times..." << std::endl;
-    
-    quick.start();
-    medium.start();
-    batch.start();
+	threadSafeCout << "Starting tasks with different execution times..." << std::endl;
+	
+	quick.start();
+	medium.start();
+	batch.start();
 
-    // Give enough time for all to complete
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+	// Give enough time for all to complete
+	std::this_thread::sleep_for(std::chrono::seconds(3));
 
-    quick.stop();
-    medium.stop();
-    batch.stop();
+	quick.stop();
+	medium.stop();
+	batch.stop();
 }
 
 void dataProcessingTask(int dataSize) {
-    auto processor = [dataSize]() {
-        threadSafeCout << "Processing " << dataSize << " data items..." << std::endl;
-        
-        for (int i = 0; i < dataSize; ++i) {
-            // Simulate data processing
-            int result = i * i + i;
-            
-            if (i % (dataSize / 4) == 0) {  // Report progress 4 times
-                threadSafeCout << "Progress: " << i << "/" << dataSize 
-                              << " (sample result: " << result << ")" << std::endl;
-            }
-            
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
-        }
-        
-        threadSafeCout << "Data processing completed for " << dataSize << " items" << std::endl;
-    };
-    
-    processor();
+	auto processor = [dataSize]() {
+		threadSafeCout << "Processing " << dataSize << " data items..." << std::endl;
+		
+		for (int i = 0; i < dataSize; ++i) {
+			// Simulate data processing
+			int result = i * i + i;
+			
+			if (i % (dataSize / 4) == 0) {  // Report progress 4 times
+				threadSafeCout << "Progress: " << i << "/" << dataSize 
+							  << " (sample result: " << result << ")" << std::endl;
+			}
+			
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		}
+		
+		threadSafeCout << "Data processing completed for " << dataSize << " items" << std::endl;
+	};
+	
+	processor();
 }
 
 void test_parameterized_tasks() {
-    threadSafeCout << "\n=== Parameterized Tasks Test ===" << std::endl;
-    
-    Thread smallData("SmallData", [](){ dataProcessingTask(8); });
-    Thread mediumData("MediumData", [](){ dataProcessingTask(12); });
-    Thread largeData("LargeData", [](){ dataProcessingTask(16); });
+	threadSafeCout << "\n=== Parameterized Tasks Test ===" << std::endl;
+	
+	Thread smallData("SmallData", [](){ dataProcessingTask(8); });
+	Thread mediumData("MediumData", [](){ dataProcessingTask(12); });
+	Thread largeData("LargeData", [](){ dataProcessingTask(16); });
 
-    threadSafeCout << "Starting parameterized data processing tasks..." << std::endl;
-    
-    smallData.start();
-    mediumData.start();
-    largeData.start();
+	threadSafeCout << "Starting parameterized data processing tasks..." << std::endl;
+	
+	smallData.start();
+	mediumData.start();
+	largeData.start();
 
-    // Give them time to complete
-    std::this_thread::sleep_for(std::chrono::seconds(4));
+	// Give them time to complete
+	std::this_thread::sleep_for(std::chrono::seconds(4));
 
-    smallData.stop();
-    mediumData.stop();
-    largeData.stop();
+	smallData.stop();
+	mediumData.stop();
+	largeData.stop();
 }
 
 void fileSimulationTask() {
-    std::vector<std::string> files = {"config.txt", "data.csv", "log.txt", "backup.zip"};
-    
-    for (const auto& file : files) {
-        threadSafeCout << "Simulating processing of " << file << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
-        threadSafeCout << "Completed processing " << file << std::endl;
-    }
-    
-    threadSafeCout << "All files processed!" << std::endl;
+	std::vector<std::string> files = {"config.txt", "data.csv", "log.txt", "backup.zip"};
+	
+	for (const auto& file : files) {
+		threadSafeCout << "Simulating processing of " << file << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		threadSafeCout << "Completed processing " << file << std::endl;
+	}
+	
+	threadSafeCout << "All files processed!" << std::endl;
 }
 
 void networkSimulationTask() {
-    std::vector<std::string> urls = {"api.example.com", "data.service.com", "backup.cloud.com"};
-    
-    for (const auto& url : urls) {
-        threadSafeCout << "Simulating request to " << url << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(400));
-        threadSafeCout << "Response received from " << url << std::endl;
-    }
-    
-    threadSafeCout << "All network requests completed!" << std::endl;
+	std::vector<std::string> urls = {"api.example.com", "data.service.com", "backup.cloud.com"};
+	
+	for (const auto& url : urls) {
+		threadSafeCout << "Simulating request to " << url << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(400));
+		threadSafeCout << "Response received from " << url << std::endl;
+	}
+	
+	threadSafeCout << "All network requests completed!" << std::endl;
 }
 
 void test_realistic_scenarios() {
-    threadSafeCout << "\n=== Realistic Scenarios Test ===" << std::endl;
-    
-    Thread fileProcessor("FileProcessor", fileSimulationTask);
-    Thread networkClient("NetworkClient", networkSimulationTask);
+	threadSafeCout << "\n=== Realistic Scenarios Test ===" << std::endl;
+	
+	Thread fileProcessor("FileProcessor", fileSimulationTask);
+	Thread networkClient("NetworkClient", networkSimulationTask);
 
-    threadSafeCout << "Starting realistic file and network processing scenarios..." << std::endl;
-    
-    fileProcessor.start();
-    networkClient.start();
+	threadSafeCout << "Starting realistic file and network processing scenarios..." << std::endl;
+	
+	fileProcessor.start();
+	networkClient.start();
 
-    // Give them time to complete their specific tasks
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+	// Give them time to complete their specific tasks
+	std::this_thread::sleep_for(std::chrono::seconds(3));
 
-    fileProcessor.stop();
-    networkClient.stop();
+	fileProcessor.stop();
+	networkClient.stop();
 }
 
 void mathComputationTask() {
-    threadSafeCout << "Starting mathematical computation..." << std::endl;
-    
-    double result = 0.0;
-    for (int i = 1; i <= 1000; ++i) {
-        result += 1.0 / (i * i);  // Computing partial sum of π²/6
-        
-        if (i % 250 == 0) {
-            threadSafeCout << "Math progress: " << i << "/1000, current sum: " << result << std::endl;
-        }
-    }
-    
-    threadSafeCout << "Mathematical computation completed. Final result: " << result << std::endl;
+	threadSafeCout << "Starting mathematical computation..." << std::endl;
+	
+	double result = 0.0;
+	for (int i = 1; i <= 1000; ++i) {
+		result += 1.0 / (i * i);  // Computing partial sum of π²/6
+		
+		if (i % 250 == 0) {
+			threadSafeCout << "Math progress: " << i << "/1000, current sum: " << result << std::endl;
+		}
+	}
+	
+	threadSafeCout << "Mathematical computation completed. Final result: " << result << std::endl;
 }
 
 void stringProcessingTask() {
-    std::vector<std::string> words = {"hello", "world", "threading", "example", "test", "complete"};
-    
-    threadSafeCout << "Processing string operations..." << std::endl;
-    
-    for (const auto& word : words) {
-        std::string upper = word;
-        std::transform(upper.begin(), upper.end(), upper.begin(), ::toupper);
-        
-        threadSafeCout << "Processed: " << word << " -> " << upper 
-                      << " (length: " << word.length() << ")" << std::endl;
-        
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    }
-    
-    threadSafeCout << "String processing completed!" << std::endl;
+	std::vector<std::string> words = {"hello", "world", "threading", "example", "test", "complete"};
+	
+	threadSafeCout << "Processing string operations..." << std::endl;
+	
+	for (const auto& word : words) {
+		std::string upper = word;
+		std::transform(upper.begin(), upper.end(), upper.begin(), ::toupper);
+		
+		threadSafeCout << "Processed: " << word << " -> " << upper 
+					  << " (length: " << word.length() << ")" << std::endl;
+		
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	}
+	
+	threadSafeCout << "String processing completed!" << std::endl;
 }
 
 void test_computation_tasks() {
-    threadSafeCout << "\n=== Computation Tasks Test ===" << std::endl;
-    
-    Thread mathThread("MathComputation", mathComputationTask);
-    Thread stringThread("StringProcessing", stringProcessingTask);
+	threadSafeCout << "\n=== Computation Tasks Test ===" << std::endl;
+	
+	Thread mathThread("MathComputation", mathComputationTask);
+	Thread stringThread("StringProcessing", stringProcessingTask);
 
-    threadSafeCout << "Starting computational tasks..." << std::endl;
-    
-    mathThread.start();
-    stringThread.start();
+	threadSafeCout << "Starting computational tasks..." << std::endl;
+	
+	mathThread.start();
+	stringThread.start();
 
-    // Give them time to complete their computations
-    std::this_thread::sleep_for(std::chrono::seconds(4));
+	// Give them time to complete their computations
+	std::this_thread::sleep_for(std::chrono::seconds(4));
 
-    mathThread.stop();
-    stringThread.stop();
+	mathThread.stop();
+	stringThread.stop();
+}
+
+void statusReportingTask() {
+	for (int i = 0; i < 8; ++i) {
+		threadSafeCout << "Status reporting task iteration " << i << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	}
+}
+
+void quickFinishTask() {
+	threadSafeCout << "Quick task starting..." << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	threadSafeCout << "Quick task completed!" << std::endl;
+}
+
+void longRunningTask() {
+	for (int i = 0; i < 20; ++i) {
+		threadSafeCout << "Long running task iteration " << i << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+	}
+}
+
+void test_thread_status_methods() {
+	threadSafeCout << "\n=== Thread Status Methods Test ===" << std::endl;
+	
+	Thread statusThread("StatusReporter", statusReportingTask);
+	Thread quickThread("QuickFinisher", quickFinishTask);
+	Thread longThread("LongRunner", longRunningTask);
+	
+	// Test initial state (not running)
+	threadSafeCout << "\n--- Initial State Test ---" << std::endl;
+	threadSafeCout << "Thread '" << statusThread.getName() << "' isRunning: " 
+				  << (statusThread.isRunning() ? "true" : "false") << std::endl;
+	threadSafeCout << "Thread '" << quickThread.getName() << "' isRunning: " 
+				  << (quickThread.isRunning() ? "true" : "false") << std::endl;
+	threadSafeCout << "Thread '" << longThread.getName() << "' isRunning: " 
+				  << (longThread.isRunning() ? "true" : "false") << std::endl;
+	
+	// Test thread IDs before starting
+	threadSafeCout << "\n--- Thread IDs Before Start ---" << std::endl;
+	threadSafeCout << "Thread '" << statusThread.getName() << "' ID: " << statusThread.getThreadId() << std::endl;
+	threadSafeCout << "Thread '" << quickThread.getName() << "' ID: " << quickThread.getThreadId() << std::endl;
+	threadSafeCout << "Thread '" << longThread.getName() << "' ID: " << longThread.getThreadId() << std::endl;
+	
+	// Start threads and test running state
+	threadSafeCout << "\n--- Starting Threads ---" << std::endl;
+	statusThread.start();
+	quickThread.start();
+	longThread.start();
+	
+	// Test state immediately after start
+	threadSafeCout << "\n--- State After Start ---" << std::endl;
+	threadSafeCout << "Thread '" << statusThread.getName() << "' isRunning: " 
+				  << (statusThread.isRunning() ? "true" : "false") << std::endl;
+	threadSafeCout << "Thread '" << quickThread.getName() << "' isRunning: " 
+				  << (quickThread.isRunning() ? "true" : "false") << std::endl;
+	threadSafeCout << "Thread '" << longThread.getName() << "' isRunning: " 
+				  << (longThread.isRunning() ? "true" : "false") << std::endl;
+	
+	// Test thread IDs after starting
+	threadSafeCout << "\n--- Thread IDs After Start ---" << std::endl;
+	threadSafeCout << "Thread '" << statusThread.getName() << "' ID: " << statusThread.getThreadId() << std::endl;
+	threadSafeCout << "Thread '" << quickThread.getName() << "' ID: " << quickThread.getThreadId() << std::endl;
+	threadSafeCout << "Thread '" << longThread.getName() << "' ID: " << longThread.getThreadId() << std::endl;
+	
+	// Monitor status changes over time
+	threadSafeCout << "\n--- Monitoring Status Changes ---" << std::endl;
+	for (int i = 0; i < 10; ++i) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		
+		threadSafeCout << "Monitor " << i << " - StatusReporter: " 
+					  << (statusThread.isRunning() ? "running" : "stopped")
+					  << ", QuickFinisher: " 
+					  << (quickThread.isRunning() ? "running" : "stopped")
+					  << ", LongRunner: " 
+					  << (longThread.isRunning() ? "running" : "stopped") << std::endl;
+	}
+	
+	// Stop threads and test final state
+	threadSafeCout << "\n--- Stopping Threads ---" << std::endl;
+	statusThread.stop();
+	quickThread.stop();
+	longThread.stop();
+	
+	threadSafeCout << "\n--- Final State After Stop ---" << std::endl;
+	threadSafeCout << "Thread '" << statusThread.getName() << "' isRunning: " 
+				  << (statusThread.isRunning() ? "true" : "false") << std::endl;
+	threadSafeCout << "Thread '" << quickThread.getName() << "' isRunning: " 
+				  << (quickThread.isRunning() ? "true" : "false") << std::endl;
+	threadSafeCout << "Thread '" << longThread.getName() << "' isRunning: " 
+				  << (longThread.isRunning() ? "true" : "false") << std::endl;
+}
+
+void nameTestTask(int id) {
+	auto task = [id]() {
+		for (int i = 0; i < 5; ++i) {
+			threadSafeCout << "Name test task " << id << " iteration " << i << std::endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(150));
+		}
+	};
+	task();
+}
+
+void test_thread_names() {
+	threadSafeCout << "\n=== Thread Names Test ===" << std::endl;
+	
+	// Test various naming patterns
+	std::vector<Thread> namedThreads;
+	namedThreads.reserve(6);
+	
+	namedThreads.emplace_back("Worker-1", []() { nameTestTask(1); });
+	namedThreads.emplace_back("DataProcessor", []() { nameTestTask(2); });
+	namedThreads.emplace_back("NetworkClient", []() { nameTestTask(3); });
+	namedThreads.emplace_back("FileHandler_Main", []() { nameTestTask(4); });
+	namedThreads.emplace_back("Background-Service-001", []() { nameTestTask(5); });
+	namedThreads.emplace_back("TempThread", []() { nameTestTask(6); });
+	
+	// Display all thread names before starting
+	threadSafeCout << "\n--- Thread Names Before Start ---" << std::endl;
+	for (size_t i = 0; i < namedThreads.size(); ++i) {
+		threadSafeCout << "Thread " << i << " name: '" << namedThreads[i].getName() 
+					  << "', running: " << (namedThreads[i].isRunning() ? "true" : "false") << std::endl;
+	}
+	
+	// Start all threads
+	threadSafeCout << "\n--- Starting Named Threads ---" << std::endl;
+	for (auto& thread : namedThreads) {
+		thread.start();
+		threadSafeCout << "Started thread: '" << thread.getName() << "' with ID: " << thread.getThreadId() << std::endl;
+	}
+	
+	// Monitor while running
+	threadSafeCout << "\n--- Monitoring Named Threads ---" << std::endl;
+	for (int i = 0; i < 5; ++i) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		
+		threadSafeCout << "Status check " << i << ":" << std::endl;
+		for (const auto& thread : namedThreads) {
+			threadSafeCout << "  '" << thread.getName() << "' (ID: " << thread.getThreadId() << "): " 
+						  << (thread.isRunning() ? "running" : "stopped") << std::endl;
+		}
+	}
+	
+	// Stop all threads
+	threadSafeCout << "\n--- Stopping Named Threads ---" << std::endl;
+	for (auto& thread : namedThreads) {
+		thread.stop();
+		threadSafeCout << "Stopped thread: '" << thread.getName() << "'" << std::endl;
+	}
+}
+
+void threadIdAnalysisTask(int duration) {
+	auto task = [duration]() {
+		threadSafeCout << "Thread ID analysis task running for " << duration << "ms" << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(duration));
+		threadSafeCout << "Thread ID analysis task completed" << std::endl;
+	};
+	task();
+}
+
+void test_thread_ids() {
+	threadSafeCout << "\n=== Thread IDs Test ===" << std::endl;
+	
+	std::vector<Thread> idTestThreads;
+	idTestThreads.reserve(5);
+	
+	// Create threads with different durations
+	idTestThreads.emplace_back("ID-Test-1", []() { threadIdAnalysisTask(500); });
+	idTestThreads.emplace_back("ID-Test-2", []() { threadIdAnalysisTask(800); });
+	idTestThreads.emplace_back("ID-Test-3", []() { threadIdAnalysisTask(300); });
+	idTestThreads.emplace_back("ID-Test-4", []() { threadIdAnalysisTask(1000); });
+	idTestThreads.emplace_back("ID-Test-5", []() { threadIdAnalysisTask(200); });
+	
+	// Test IDs before starting (should be invalid/default)
+	threadSafeCout << "\n--- Thread IDs Before Start ---" << std::endl;
+	for (size_t i = 0; i < idTestThreads.size(); ++i) {
+		threadSafeCout << "Thread '" << idTestThreads[i].getName() 
+					  << "' ID before start: " << idTestThreads[i].getThreadId() << std::endl;
+	}
+	
+	// Start threads and check IDs
+	threadSafeCout << "\n--- Starting Threads and Checking IDs ---" << std::endl;
+	for (auto& thread : idTestThreads) {
+		thread.start();
+		threadSafeCout << "Started '" << thread.getName() 
+					  << "' - ID: " << thread.getThreadId() 
+					  << ", Running: " << (thread.isRunning() ? "true" : "false") << std::endl;
+		
+		// Small delay between starts to see ID assignment
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	}
+	
+	// Monitor thread completion by ID
+	threadSafeCout << "\n--- Monitoring Thread Completion by ID ---" << std::endl;
+	std::vector<bool> threadCompleted(idTestThreads.size(), false);
+	
+	for (int check = 0; check < 15; ++check) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		
+		bool anyRunning = false;
+		for (size_t i = 0; i < idTestThreads.size(); ++i) {
+			bool isRunning = idTestThreads[i].isRunning();
+			if (isRunning) {
+				anyRunning = true;
+			}
+			
+			if (!isRunning && !threadCompleted[i]) {
+				threadSafeCout << "Thread '" << idTestThreads[i].getName() 
+							  << "' (ID: " << idTestThreads[i].getThreadId() 
+							  << ") completed naturally" << std::endl;
+				threadCompleted[i] = true;
+			}
+		}
+		
+		if (!anyRunning) {
+			threadSafeCout << "All threads completed naturally" << std::endl;
+			break;
+		}
+	}
+	
+	// Stop any remaining threads
+	threadSafeCout << "\n--- Stopping Remaining Threads ---" << std::endl;
+	for (auto& thread : idTestThreads) {
+		if (thread.isRunning()) {
+			threadSafeCout << "Force stopping '" << thread.getName() 
+						  << "' (ID: " << thread.getThreadId() << ")" << std::endl;
+			thread.stop();
+		}
+	}
+	
+	// Final ID check
+	threadSafeCout << "\n--- Final Thread ID Status ---" << std::endl;
+	for (const auto& thread : idTestThreads) {
+		threadSafeCout << "Thread '" << thread.getName() 
+					  << "' final ID: " << thread.getThreadId() 
+					  << ", running: " << (thread.isRunning() ? "true" : "false") << std::endl;
+	}
+}
+
+void lifecycleTestTask() {
+	for (int i = 0; i < 6; ++i) {
+		threadSafeCout << "Lifecycle test iteration " << i << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(250));
+	}
+}
+
+void test_lifecycle_state_changes() {
+	threadSafeCout << "\n=== Thread Lifecycle State Changes Test ===" << std::endl;
+	
+	Thread lifecycleThread("LifecycleTest", lifecycleTestTask);
+	
+	auto printStatus = [&](const std::string& stage) {
+		threadSafeCout << stage << " - Name: '" << lifecycleThread.getName() 
+					  << "', ID: " << lifecycleThread.getThreadId() 
+					  << ", Running: " << (lifecycleThread.isRunning() ? "true" : "false") << std::endl;
+	};
+	
+	// Stage 1: Initial state
+	printStatus("STAGE 1 - Initial");
+	
+	// Stage 2: Start thread
+	threadSafeCout << "\n--- Starting Thread ---" << std::endl;
+	lifecycleThread.start();
+	printStatus("STAGE 2 - After Start");
+	
+	// Stage 3: Monitor while running
+	for (int i = 0; i < 8; ++i) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		threadSafeCout << "Monitor " << i << " - Running: " 
+					  << (lifecycleThread.isRunning() ? "true" : "false") << std::endl;
+	}
+	
+	// Stage 4: Stop thread
+	threadSafeCout << "\n--- Stopping Thread ---" << std::endl;
+	lifecycleThread.stop();
+	printStatus("STAGE 4 - After Stop");
+	
+	// Stage 5: Restart thread (if supported)
+	threadSafeCout << "\n--- Attempting Restart ---" << std::endl;
+	lifecycleThread.start();
+	printStatus("STAGE 5 - After Restart");
+	
+	// Let it run briefly
+	std::this_thread::sleep_for(std::chrono::milliseconds(800));
+	
+	// Final stop
+	lifecycleThread.stop();
+	printStatus("STAGE 6 - Final Stop");
+}
+
+void concurrentStatusTask(int taskId) {
+	auto task = [taskId]() {
+		for (int i = 0; i < 5; ++i) {
+			threadSafeCout << "Concurrent status task " << taskId << " iteration " << i << std::endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(100 + (taskId * 50)));
+		}
+	};
+	task();
+}
+
+void test_concurrent_status_queries() {
+	threadSafeCout << "\n=== Concurrent Status Queries Test ===" << std::endl;
+	
+	std::vector<Thread> statusThreads;
+	statusThreads.reserve(4);
+	
+	// Create multiple threads
+	for (int i = 1; i <= 4; ++i) {
+		statusThreads.emplace_back("StatusQuery-" + std::to_string(i), 
+								 [i]() { concurrentStatusTask(i); });
+	}
+	
+	// Start all threads
+	threadSafeCout << "\n--- Starting Multiple Threads ---" << std::endl;
+	for (auto& thread : statusThreads) {
+		thread.start();
+	}
+	
+	// Continuously query status from multiple threads
+	threadSafeCout << "\n--- Concurrent Status Monitoring ---" << std::endl;
+	std::vector<std::thread> queryThreads;
+	
+	// Create status query threads
+	for (int queryId = 1; queryId <= 2; ++queryId) {
+		queryThreads.emplace_back([&statusThreads, queryId]() {
+			for (int i = 0; i < 15; ++i) {
+				threadSafeCout << "Query-" << queryId << " report " << i << ":" << std::endl;
+				
+				for (const auto& thread : statusThreads) {
+					threadSafeCout << "  Query-" << queryId << " sees '" << thread.getName() 
+								  << "' (ID: " << thread.getThreadId() << "): " 
+								  << (thread.isRunning() ? "running" : "stopped") << std::endl;
+				}
+				
+				std::this_thread::sleep_for(std::chrono::milliseconds(150));
+			}
+		});
+	}
+	
+	// Let monitoring run
+	std::this_thread::sleep_for(std::chrono::seconds(3));
+	
+	// Stop worker threads
+	threadSafeCout << "\n--- Stopping Worker Threads ---" << std::endl;
+	for (auto& thread : statusThreads) {
+		thread.stop();
+	}
+	
+	// Wait for query threads to finish
+	for (auto& queryThread : queryThreads) {
+		queryThread.join();
+	}
+	
+	threadSafeCout << "Concurrent status queries test completed" << std::endl;
 }
 
 // Update your main function to include the new tests:
 int main() {
-    threadSafeCout << "Starting comprehensive thread testing..." << std::endl;
-    
-    test_original();
-    test_atomic_counter();
-    test_producer_consumer();
-    test_multiple_workers();
-    test_thread_lifecycle();
-    test_mixed_workloads();
-    test_thread_synchronization();
-    test_stress_output();
+	threadSafeCout << "Starting comprehensive thread testing..." << std::endl;
+	
+	test_original();
+	test_atomic_counter();
+	test_producer_consumer();
+	test_multiple_workers();
+	test_thread_lifecycle();
+	test_mixed_workloads();
+	test_thread_synchronization();
+	test_stress_output();
 
-    test_user_controlled_execution();
-    test_different_durations();
-    test_parameterized_tasks();
-    test_realistic_scenarios();
-    test_computation_tasks();
-    
-    threadSafeCout << "\nAll thread tests completed!" << std::endl;
-    threadSafeCout << "Final global counter value: " << globalCounter.load() << std::endl;
-    
-    return 0;
+	test_user_controlled_execution();
+	test_different_durations();
+	test_parameterized_tasks();
+	test_realistic_scenarios();
+	test_computation_tasks();
+
+	test_thread_status_methods();
+	test_thread_names();
+	test_thread_ids();
+	test_lifecycle_state_changes();
+	test_concurrent_status_queries();
+	
+	threadSafeCout << "\nAll thread tests completed!" << std::endl;
+	threadSafeCout << "Final global counter value: " << globalCounter.load() << std::endl;
+	
+	return 0;
 }
