@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:00:36 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 00:02:02 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 23:50:22 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <vector>
+#include <cstring>
 
 #include "message.hpp"
 
@@ -39,7 +41,7 @@ class Server
 		void sendTo(const Message &, long long);
 		void sendToArray(const Message &, std::vector<long long>);
 		void sendToAll(const Message &);
-		void upadte();
+		void update();
 
 	private:
 		sockfd _sockfd;

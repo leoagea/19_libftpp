@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:06:35 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 18:33:02 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 23:33:25 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <vector>
 
 #include "message.hpp"
 

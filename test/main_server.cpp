@@ -6,18 +6,21 @@ int main() {
 
     // Define an action for messages of type 1 (int)
     server.defineAction(1, [&server](long long& clientID, const Message& msg){
+        std::cout << "=== Processing TYPE 1 message ===" << std::endl; // Debug
         int value;
         msg >> value;
         threadSafeCout << "Received an int " << value << " from client " << clientID << std::endl;
 
         // Send back a message of type 3 with double the value
-        Message replyMsg;
+        Message replyMsg(3);
         replyMsg << (value * 2);
         server.sendTo(replyMsg, clientID);
+        std::cout << "=== Sent reply ===" << std::endl; // Debug
     });
 
     // Define an action for messages of type 2 (size_t followed by characters)
     server.defineAction(2, [](long long& clientID, const Message& msg){
+        std::cout << "Processing type 2 message from client " << clientID << std::endl;  // Add this
         size_t length;
         std::string text;
         msg >> length;
@@ -37,7 +40,7 @@ int main() {
 
 	while (!quit)
 	{
-		client.update();
+		server.update();
 
 		threadSafeCout << "Server updated." << std::endl;
 		threadSafeCout << "Available operations :" << std::endl;

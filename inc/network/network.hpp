@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:55:10 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 17:25:14 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 23:17:19 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 #include "message.hpp"
 #include "client.hpp"
+#include "server.hpp"
 
 #endif

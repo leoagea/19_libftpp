@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:55:38 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 17:59:58 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/20 00:01:06 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class Message
 	public:
 		using Type = int;
 	
-		Message() = default;
+		Message();
 		Message(int type) noexcept;
 		Message(const Message &) = default;
 		Message(Message &&) noexcept;
@@ -39,7 +39,10 @@ class Message
 		template<typename TType> const Message& operator>>(TType &data) const;
 		const Message& operator>>(std::string &str) const;
 		
+		void loadBufferData(const std::vector<char> &data);
+
 		Type type() const noexcept;
+		DataBuffer &getBuffer() noexcept;
 		const DataBuffer& getBuffer() const noexcept;
 
 	private:

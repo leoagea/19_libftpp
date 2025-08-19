@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:06:33 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 18:30:17 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 23:46:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,13 @@ void Client::send(const Message &message)
 	}
 	
 	const auto buffer = message.getBuffer().data();
-	size_t size = message.getBuffer().data().size();
+	size_t size = buffer.size();
+
+	if (::send(_sockfd, &size, sizeof(size), 0) < 0) {
+        std::cerr << "Error sending message size" << std::endl;
+        return;
+    }
+	
 	if (::send(_sockfd, buffer.data(), size, 0) < 0) {
 		std::cerr << "Error sending message" << std::endl;
 		return;
@@ -108,12 +114,19 @@ void Client::update()
 
 	Message::Type type;
 	if (recv(_sockfd, &type, sizeof(type), MSG_DONTWAIT) <= 0) {
-		std::cerr << "Error receiving message type" << std::endl;
+		if (errno != EAGAIN && errno != EWOULDBLOCK) 
+			std::cerr << "Error receiving message type" << std::endl;
 		return;
 	}
 
-	char buffer[1024];
-	if (recv(_sockfd, buffer, sizeof(buffer), MSG_DONTWAIT) <= 0) {	
+	size_t messageSize;
+	if (recv(_sockfd, &messageSize, sizeof(messageSize), 0) <= 0) {
+		std::cerr << "Error receiving message size" << std::endl;
+		return;
+	}
+
+	std::vector<char> buffer(messageSize);
+	if (recv(_sockfd, buffer.data(), messageSize, MSG_DONTWAIT) <= 0) {
 		std::cerr << "Error receiving message data or no data available" << std::endl;
 		return;
 	}

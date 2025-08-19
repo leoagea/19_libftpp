@@ -6,11 +6,15 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:55:40 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 17:45:10 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/20 00:01:10 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/network/message.hpp"
+
+Message::Message() : _type(0), _buffer() 
+{
+}
 
 Message::Message(int type) noexcept : _type(type), _buffer() 
 {
@@ -51,9 +55,22 @@ const Message& Message::operator>>(std::string &str) const
 	return *this;
 }
 
+void Message::loadBufferData(const std::vector<char> &data)
+{
+	_buffer.clear();
+	for (const auto &byte : data) {
+		_buffer << byte;
+	}
+}
+
 Message::Type Message::type() const noexcept
 {
 	return _type;
+}
+
+DataBuffer& Message::getBuffer() noexcept
+{
+	return _buffer;
 }
 
 const DataBuffer& Message::getBuffer() const noexcept
