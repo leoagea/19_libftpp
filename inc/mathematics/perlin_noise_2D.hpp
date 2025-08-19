@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:20:02 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/18 18:10:02 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 23:38:18 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <vector>
 #include <chrono>
 #include <algorithm>
+#include <random>
 
 #include "ivector2.hpp"
 

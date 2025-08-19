@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:19:55 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/18 17:45:58 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 23:38:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ PerlinNoise2D::PerlinNoise2D() noexcept : _seed(generateSeed())
 	for (int i = 0; i < 256; ++i)
 		_permutation[i] = i;
 		
-	std::srand(_seed);
-	std::random_shuffle(_permutation.begin(), _permutation.end());
+	std::random_device rd;
+    std::mt19937 g(rd());
+
+	std::shuffle(_permutation.begin(), _permutation.end(), g);
 	_permutation.insert(_permutation.end(), _permutation.begin(), _permutation.end());
 }
 
