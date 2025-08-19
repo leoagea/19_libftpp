@@ -6,13 +6,15 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:43:22 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 18:41:17 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 17:12:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/time/chronometer.hpp"
 
-Chronometer::Chronometer() noexcept : _running(false), _paused(false), _active_state(duration_ms::zero()), _pause_state(duration_ms::zero()), _last_state_switch(time_point::min())
+/* Public Methods */
+
+Chronometer::Chronometer() noexcept : _running(false), _paused(false), _active_state(duration_ms::zero()), _pause_state(duration_ms::zero()), _last_state_switch(time_point::min()), _total_lap_time(duration_ms::zero())
 {
 }
 
@@ -66,7 +68,6 @@ void Chronometer::lap() noexcept
 		return;  
 
 	duration_ms current_elapsed = getElapsedTimeNoLock();
-	static duration_ms _total_lap_time{0};
     
     duration_ms current_lap_time = current_elapsed - _total_lap_time;
     _total_lap_time = current_elapsed;
@@ -99,6 +100,7 @@ void Chronometer::stop() noexcept
 		}
 		_last_state_switch = time_point::min();
 		_paused = false;
+		_total_lap_time = duration_ms::zero();
 	}
 }
 
@@ -204,6 +206,8 @@ Chronometer::duration_ms Chronometer::getMinLapTime() const noexcept
 	return *std::min_element(_lapTimes.begin(), _lapTimes.end());
 }
 
+/* Private Methods */
+
 Chronometer::duration_ms Chronometer::getElapsedTimeNoLock() const noexcept
 {
 	if (_running && !_paused) {
@@ -211,4 +215,13 @@ Chronometer::duration_ms Chronometer::getElapsedTimeNoLock() const noexcept
 		return _active_state + std::chrono::duration_cast<duration_ms>(now - _last_state_switch);
 	}
 	return _active_state;
+}
+
+
+/* Operator Overloading */
+
+std::ostream& operator<<(std::ostream &os, const Chronometer::duration_ms &duration) 
+{
+	os << std::fixed << std::setprecision(3) << duration.count() << " ms";
+	return os;
 }

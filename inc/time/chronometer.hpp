@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:43:28 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/12 18:32:45 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 17:14:00 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <chrono>
 #include <algorithm>
 #include <numeric>
+#include <iostream>
+#include <iomanip>
 
 /*
  * Chronometer class for measuring elapsed time, supporting start, pause, resume,
@@ -71,11 +73,14 @@ class Chronometer
 		duration_ms _active_state;
 		duration_ms _pause_state;
 		time_point _last_state_switch;
+		duration_ms _total_lap_time;
 		
 		std::vector<duration_ms> _lapTimes;
 		std::vector<duration_ms> _splitTimes;
-
+		
 		duration_ms getElapsedTimeNoLock() const noexcept;
-};
+}; 
+	
+std::ostream& operator<<(std::ostream &os, const Chronometer::duration_ms &duration);
 
 #endif
