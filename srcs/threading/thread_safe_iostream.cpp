@@ -6,19 +6,19 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 23:46:18 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 00:26:16 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 14:12:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/threading/thread_safe_iostream.hpp"
-#include <sstream>
 
 std::mutex ThreadSafeIOStream::_global_mutex;
 thread_local std::string ThreadSafeIOStream::_buffer;
-
 thread_local ThreadSafeIOStream threadSafeCout;
 
-ThreadSafeIOStream::ThreadSafeIOStream() : _prefix(""), _line_start(true) 
+/* Public Methods */
+
+ThreadSafeIOStream::ThreadSafeIOStream() :  _line_start(true), _prefix("")
 {
 }
 
@@ -26,11 +26,11 @@ ThreadSafeIOStream::~ThreadSafeIOStream()
 {
 }
 
-ThreadSafeIOStream::ThreadSafeIOStream(const ThreadSafeIOStream &other) : _prefix(other._prefix), _line_start(other._line_start) 
+ThreadSafeIOStream::ThreadSafeIOStream(const ThreadSafeIOStream &other) : _line_start(other._line_start), _prefix(other._prefix)
 {
 }
 
-ThreadSafeIOStream& ThreadSafeIOStream::operator=(const ThreadSafeIOStream &other) 
+ThreadSafeIOStream &ThreadSafeIOStream::operator=(const ThreadSafeIOStream &other) 
 {
 	if (this != &other) {
 		_prefix = other._prefix;
@@ -39,12 +39,12 @@ ThreadSafeIOStream& ThreadSafeIOStream::operator=(const ThreadSafeIOStream &othe
 	return *this;
 }
 
-ThreadSafeIOStream::ThreadSafeIOStream(ThreadSafeIOStream &&other) noexcept : _prefix(std::move(other._prefix)), _line_start(other._line_start) 
+ThreadSafeIOStream::ThreadSafeIOStream(ThreadSafeIOStream &&other) noexcept : _line_start(other._line_start), _prefix(std::move(other._prefix))
 {
 	other._line_start = true;
 }
 
-ThreadSafeIOStream& ThreadSafeIOStream::operator=(ThreadSafeIOStream &&other) noexcept \
+ThreadSafeIOStream &ThreadSafeIOStream::operator=(ThreadSafeIOStream &&other) noexcept 
 {
 	if (this != &other) {
 		_prefix = std::move(other._prefix);
@@ -59,12 +59,12 @@ void ThreadSafeIOStream::setPrefix(const std::string &prefix)
 	_prefix = prefix;
 }
 
-const std::string& ThreadSafeIOStream::getPrefix() const 
+const std::string &ThreadSafeIOStream::getPrefix() const 
 {
 	return _prefix;
 }
 
-ThreadSafeIOStream& ThreadSafeIOStream::operator<<(std::ostream &(*manip)(std::ostream &)) 
+ThreadSafeIOStream &ThreadSafeIOStream::operator<<(std::ostream &(*manip)(std::ostream &)) 
 {
 	std::lock_guard<std::mutex> lock(_global_mutex);
 	
@@ -83,6 +83,8 @@ ThreadSafeIOStream& ThreadSafeIOStream::operator<<(std::ostream &(*manip)(std::o
 	
 	return *this;
 }
+
+/* Private Methods */
 
 void ThreadSafeIOStream::print_prefix_if_needed() 
 {

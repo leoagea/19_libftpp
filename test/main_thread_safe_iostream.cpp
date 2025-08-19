@@ -51,11 +51,10 @@ void testPromptFunctionality(int threadId) {
 	threadSafeCout << "Thread " << threadId << " would prompt for input here" << std::endl;
 	
 	// Uncomment for interactive testing:
-	/*
-	int userInput;
-	threadSafeCout.prompt("Enter a number for thread " + std::to_string(threadId) + ":", userInput);
-	threadSafeCout << "You entered: " << userInput << std::endl;
-	*/
+	
+	// int userInput;
+	// threadSafeCout.prompt("Enter a number for thread " + std::to_string(threadId) + ":", userInput);
+	// threadSafeCout << "You entered: " << userInput << std::endl;
 }
 
 // Test 5: Long text output

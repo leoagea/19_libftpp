@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 23:44:52 by lagea             #+#    #+#             */
-/*   Updated: 2025/08/11 00:26:19 by lagea            ###   ########.fr       */
+/*   Updated: 2025/08/19 14:09:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,17 @@ class ThreadSafeIOStream
 		void setPrefix(const std::string &);
 		const std::string& getPrefix() const;
 
-		template<typename T>
-		ThreadSafeIOStream& operator<<(const T &);
-		ThreadSafeIOStream& operator<<(std::ostream &(*)(std::ostream &));
+		template<typename T> ThreadSafeIOStream &operator<<(const T &);
+		template<typename T> ThreadSafeIOStream& operator>>(T &);
+		
+		ThreadSafeIOStream &operator<<(std::ostream &(*)(std::ostream &));
 
-		template<typename T>
-		ThreadSafeIOStream& operator>>(T &);
-
-		template<typename T>
-		void prompt(const std::string &, T &);
+		template<typename T> void prompt(const std::string &, T &);
 
 	private:
-		static std::mutex _global_mutex;
-		std::string _prefix;
 		bool _line_start;
+		std::string _prefix;
+		static std::mutex _global_mutex;
 		thread_local static std::string _buffer;
 		
 		void print_prefix_if_needed();
