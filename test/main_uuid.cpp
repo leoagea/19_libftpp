@@ -12,26 +12,26 @@
 void test_basic_functionality() {
 	std::cout << "=== Testing Basic Functionality ===" << std::endl;
 	
-	// Test default constructor (null UUID)
-	UUID nullUuid;
-	std::cout << "Null UUID: " << nullUuid << std::endl;
+	// Test default constructor (null Uuid)
+	Uuid nullUuid;
+	std::cout << "Null Uuid: " << nullUuid << std::endl;
 	std::cout << "Is null: " << (nullUuid.isNull() ? "true" : "false") << std::endl;
 	std::cout << "Is valid: " << (nullUuid.isValid() ? "true" : "false") << std::endl;
 	
 	// Test static null factory
-	UUID staticNull = UUID::null();
+	Uuid staticNull = Uuid::null();
 	std::cout << "Static null: " << staticNull << std::endl;
 	std::cout << "Nulls equal: " << (nullUuid == staticNull ? "true" : "false") << std::endl;
 	
 	// Test V4 generation
-	UUID uuid4 = UUID::generate();
+	Uuid uuid4 = Uuid::generate();
 	std::cout << "Generated V4: " << uuid4 << std::endl;
 	std::cout << "Version: " << uuid4.version() << std::endl;
 	std::cout << "Variant: " << uuid4.variant() << std::endl;
 	std::cout << "Is valid: " << (uuid4.isValid() ? "true" : "false") << std::endl;
 	
 	// Test V1 generation
-	UUID uuid1 = UUID::generateV1();
+	Uuid uuid1 = Uuid::generateV1();
 	std::cout << "Generated V1: " << uuid1 << std::endl;
 	std::cout << "Version: " << uuid1.version() << std::endl;
 	std::cout << "Variant: " << uuid1.variant() << std::endl;
@@ -43,7 +43,7 @@ void test_basic_functionality() {
 void test_string_functionality() {
 	std::cout << "=== Testing String Functionality ===" << std::endl;
 	
-	UUID uuid = UUID::generate();
+	Uuid uuid = Uuid::generate();
 	
 	// Test toString variants
 	std::string lowercase = uuid.toString();
@@ -57,25 +57,25 @@ void test_string_functionality() {
 	
 	// Test string parsing
 	try {
-		UUID fromString(lowercase);
-		std::cout << "Parsed UUID: " << fromString << std::endl;
+		Uuid fromString(lowercase);
+		std::cout << "Parsed Uuid: " << fromString << std::endl;
 		std::cout << "Strings match: " << (uuid == fromString ? "true" : "false") << std::endl;
 		
 		// Test with uppercase
-		UUID fromUpper(uppercase);
+		Uuid fromUpper(uppercase);
 		std::cout << "From upper:  " << fromUpper << std::endl;
 		std::cout << "Upper match: " << (uuid == fromUpper ? "true" : "false") << std::endl;
 		
 	} catch (const std::exception& e) {
-		std::cout << "Error parsing UUID: " << e.what() << std::endl;
+		std::cout << "Error parsing Uuid: " << e.what() << std::endl;
 	}
 	
 	// Test invalid string
 	try {
-		UUID invalid("invalid-uuid-string");
+		Uuid invalid("invalid-uuid-string");
 		std::cout << "ERROR: Should have thrown exception!" << std::endl;
 	} catch (const std::exception& e) {
-		std::cout << "Correctly caught invalid UUID: " << e.what() << std::endl;
+		std::cout << "Correctly caught invalid Uuid: " << e.what() << std::endl;
 	}
 	
 	std::cout << std::endl;
@@ -84,13 +84,13 @@ void test_string_functionality() {
 void test_comparison_operators() {
 	std::cout << "=== Testing Comparison Operators ===" << std::endl;
 	
-	UUID uuid1 = UUID::generate();
-	UUID uuid2 = UUID::generate();
-	UUID uuid1_copy = UUID(uuid1.toString());
+	Uuid uuid1 = Uuid::generate();
+	Uuid uuid2 = Uuid::generate();
+	Uuid uuid1_copy = Uuid(uuid1.toString());
 	
-	std::cout << "UUID 1: " << uuid1 << std::endl;
-	std::cout << "UUID 2: " << uuid2 << std::endl;
-	std::cout << "UUID 1 copy: " << uuid1_copy << std::endl;
+	std::cout << "Uuid 1: " << uuid1 << std::endl;
+	std::cout << "Uuid 2: " << uuid2 << std::endl;
+	std::cout << "Uuid 1 copy: " << uuid1_copy << std::endl;
 	
 	// Test equality
 	std::cout << "uuid1 == uuid1_copy: " << (uuid1 == uuid1_copy ? "true" : "false") << std::endl;
@@ -110,9 +110,9 @@ void test_container_support() {
 	std::cout << "=== Testing Container Support ===" << std::endl;
 	
 	// Test std::set (requires operator<)
-	std::set<UUID> uuidSet;
+	std::set<Uuid> uuidSet;
 	for (int i = 0; i < 5; ++i) {
-		uuidSet.insert(UUID::generate());
+		uuidSet.insert(Uuid::generate());
 	}
 	
 	std::cout << "Set contents (" << uuidSet.size() << " elements):" << std::endl;
@@ -121,9 +121,9 @@ void test_container_support() {
 	}
 	
 	// Test std::unordered_set (requires hash function)
-	std::unordered_set<UUID> uuidHashSet;
+	std::unordered_set<Uuid> uuidHashSet;
 	for (int i = 0; i < 5; ++i) {
-		uuidHashSet.insert(UUID::generate());
+		uuidHashSet.insert(Uuid::generate());
 	}
 	
 	std::cout << "Hash set contents (" << uuidHashSet.size() << " elements):" << std::endl;
@@ -132,10 +132,10 @@ void test_container_support() {
 	}
 	
 	// Test std::unordered_map
-	std::unordered_map<UUID, std::string> uuidMap;
-	uuidMap[UUID::generate()] = "First UUID";
-	uuidMap[UUID::generate()] = "Second UUID";
-	uuidMap[UUID::generate()] = "Third UUID";
+	std::unordered_map<Uuid, std::string> uuidMap;
+	uuidMap[Uuid::generate()] = "First Uuid";
+	uuidMap[Uuid::generate()] = "Second Uuid";
+	uuidMap[Uuid::generate()] = "Third Uuid";
 	
 	std::cout << "Map contents (" << uuidMap.size() << " elements):" << std::endl;
 	for (const auto& pair : uuidMap) {
@@ -146,15 +146,15 @@ void test_container_support() {
 }
 
 void test_uniqueness() {
-	std::cout << "=== Testing UUID Uniqueness ===" << std::endl;
+	std::cout << "=== Testing Uuid Uniqueness ===" << std::endl;
 	
 	const int count = 1000;
-	std::unordered_set<UUID> generatedUuids;
+	std::unordered_set<Uuid> generatedUuids;
 	
 	auto start = std::chrono::steady_clock::now();
 	
 	for (int i = 0; i < count; ++i) {
-		generatedUuids.insert(UUID::generate());
+		generatedUuids.insert(Uuid::generate());
 	}
 	
 	auto end = std::chrono::steady_clock::now();
@@ -164,14 +164,14 @@ void test_uniqueness() {
 			  << duration.count() << " microseconds" << std::endl;
 	std::cout << "Unique UUIDs: " << generatedUuids.size() << std::endl;
 	std::cout << "Duplicates: " << (count - generatedUuids.size()) << std::endl;
-	std::cout << "Average time per UUID: " 
+	std::cout << "Average time per Uuid: " 
 			  << std::fixed << std::setprecision(3) 
 			  << (double)duration.count() / count << " microseconds" << std::endl;
 	
 	// Test V1 uniqueness (should be sequential)
-	std::cout << "\nV1 UUID sequential test:" << std::endl;
+	std::cout << "\nV1 Uuid sequential test:" << std::endl;
 	for (int i = 0; i < 5; ++i) {
-		UUID v1 = UUID::generateV1();
+		Uuid v1 = Uuid::generateV1();
 		std::cout << "V1 #" << i << ": " << v1 << std::endl;
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
@@ -185,7 +185,7 @@ void test_thread_safety() {
 	const int numThreads = 4;
 	const int uuidsPerThread = 250;
 	std::vector<std::thread> threads;
-	std::vector<std::vector<UUID>> results(numThreads);
+	std::vector<std::vector<Uuid>> results(numThreads);
 	
 	auto start = std::chrono::steady_clock::now();
 	
@@ -194,7 +194,7 @@ void test_thread_safety() {
 		threads.emplace_back([t, uuidsPerThread, &results]() {
 			results[t].reserve(uuidsPerThread);
 			for (int i = 0; i < uuidsPerThread; ++i) {
-				results[t].push_back(UUID::generate());
+				results[t].push_back(Uuid::generate());
 			}
 		});
 	}
@@ -208,13 +208,13 @@ void test_thread_safety() {
 	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 	
 	// Check for duplicates across all threads
-	std::unordered_set<UUID> allUuids;
+	std::vector<Uuid> allUuids;
 	int totalGenerated = 0;
 	
-	for (const auto& threadResults : results) {
+	for (auto& threadResults : results) {
 		totalGenerated += threadResults.size();
-		for (const auto& uuid : threadResults) {
-			allUuids.insert(uuid);
+		for (auto& uuid : threadResults) {
+			allUuids.push_back(std::move(uuid));
 		}
 	}
 	
@@ -223,10 +223,16 @@ void test_thread_safety() {
 	std::cout << "Unique UUIDs: " << allUuids.size() << std::endl;
 	std::cout << "Duplicates: " << (totalGenerated - allUuids.size()) << std::endl;
 	std::cout << "Time: " << duration.count() << " microseconds" << std::endl;
-	std::cout << "Average per UUID: " 
+	std::cout << "Average per Uuid: " 
 			  << std::fixed << std::setprecision(3)
 			  << (double)duration.count() / totalGenerated << " microseconds" << std::endl;
 	
+	std::sort(allUuids.begin(), allUuids.end());
+	auto unique_end = std::unique(allUuids.begin(), allUuids.end());
+	size_t unique_count = std::distance(allUuids.begin(), unique_end);
+	
+	std::cout << "Unique UUIDs: " << unique_count << std::endl;
+	std::cout << "Duplicates: " << (totalGenerated - unique_count) << std::endl;
 	std::cout << std::endl;
 }
 
@@ -234,17 +240,17 @@ void test_edge_cases() {
 	std::cout << "=== Testing Edge Cases ===" << std::endl;
 	
 	// Test move semantics
-	UUID original = UUID::generate();
+	Uuid original = Uuid::generate();
 	std::cout << "Original: " << original << std::endl;
 	
-	UUID moved = std::move(original);
+	Uuid moved = std::move(original);
 	std::cout << "Moved: " << moved << std::endl;
 	std::cout << "Original after move: " << original << std::endl;
 	
 	// Test copy semantics
-	UUID copied = moved;
-	std::cout << "Copied: " << copied << std::endl;
-	std::cout << "Copy == Moved: " << (copied == moved ? "true" : "false") << std::endl;
+	Uuid moved_again = std::move(moved);
+	std::cout << "Copied: " << moved_again << std::endl;
+	std::cout << "Copy == Moved: " << (moved_again == moved ? "true" : "false") << std::endl;
 	
 	// Test data access
 	auto data = moved.data();
@@ -261,9 +267,9 @@ void test_edge_cases() {
 	customData[6] = 0x4F;  // Version 4
 	customData[8] = 0x8F;  // Variant
 	
-	UUID custom;
+	Uuid custom;
 	custom.setData(customData);
-	std::cout << "Custom data UUID: " << custom << std::endl;
+	std::cout << "Custom data Uuid: " << custom << std::endl;
 	std::cout << "Custom is valid: " << (custom.isValid() ? "true" : "false") << std::endl;
 	
 	// Test invalid string formats
@@ -277,7 +283,7 @@ void test_edge_cases() {
 	
 	for (const auto& invalid : invalidStrings) {
 		try {
-			UUID test(invalid);
+			Uuid test(invalid);
 			std::cout << "ERROR: Should have failed for: " << invalid << std::endl;
 		} catch (const std::exception& e) {
 			std::cout << "Correctly rejected: " << invalid << std::endl;
@@ -290,7 +296,7 @@ void test_edge_cases() {
 void test_stream_operators() {
 	std::cout << "=== Testing Stream Operators ===" << std::endl;
 	
-	UUID uuid = UUID::generate();
+	Uuid uuid = Uuid::generate();
 	
 	// Test output operator
 	std::cout << "Stream output: " << uuid << std::endl;
@@ -301,9 +307,9 @@ void test_stream_operators() {
 	std::string streamedString = ss.str();
 	std::cout << "Stringstream: " << streamedString << std::endl;
 	
-	// Test that streamed string can recreate UUID
+	// Test that streamed string can recreate Uuid
 	try {
-		UUID recreated(streamedString);
+		Uuid recreated(streamedString);
 		std::cout << "Recreated: " << recreated << std::endl;
 		std::cout << "Match: " << (uuid == recreated ? "true" : "false") << std::endl;
 	} catch (const std::exception& e) {
@@ -314,7 +320,7 @@ void test_stream_operators() {
 }
 
 int main() {
-	std::cout << "UUID Class Comprehensive Test Suite" << std::endl;
+	std::cout << "Uuid Class Comprehensive Test Suite" << std::endl;
 	std::cout << "===================================" << std::endl;
 	
 	try {
